@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1575913107553.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "813ABCD7",
+    "lastKnownWriteTime" : 1577225965,
+    "last_content_update" : 1577225965860,
+    "path" : "~/KCDE_new/prediction.R",
+    "project_path" : "prediction.R",
+    "properties" : {
+        "cursorPosition" : "69,0",
+        "scrollLine" : "62",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
