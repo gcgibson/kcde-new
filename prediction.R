@@ -1,5 +1,8 @@
 library(tsfknn)
 library(quantmod)
+
+possible_sigmas <- c(1e-20,.00001,.0001)
+
 # Utility function for RBF similarity
 rbf <- function(x, y, sigma = 1)
 {
@@ -32,14 +35,15 @@ predict_kcde <- function(ts,k,h,num_lags,sigma,epiweek){
   
   top_k_similar <- tail(sort(similarities),k)
   top_k_similar_ys <-as.numeric(names(top_k_similar))
-  
+  print (ts)
+ # print(ts[top_k_similar_ys+num_lags-1+h])
+  print("--------")
   pred_density <- sample(ts[top_k_similar_ys+num_lags-1+h],10000,prob=top_k_similar,replace=T)
 
   return(pred_density)
 }
 
 loo_cv <- function(ts,k,h,num_lags,epiweek){
-  possible_sigmas <- c(1e-10,.00001,.001,.01,.1,1,10,100,1000)
   sigma_results <- rep(NA,length(possible_sigmas))
   sigma_idx <-1
   for (sigma in possible_sigmas){
@@ -56,7 +60,6 @@ loo_cv <- function(ts,k,h,num_lags,epiweek){
 }
 
 leave_one_season_out_cv <- function(ts_obj,k,h,num_lags,epiweek){
-  possible_sigmas <- c(1e-10,.00001,.001,.01,.1,1,10,100,1000)
   sigma_results <- rep(NA,length(possible_sigmas))
   sigma_idx <-1
   seasons <- unique(ts_obj$season)
@@ -68,7 +71,7 @@ leave_one_season_out_cv <- function(ts_obj,k,h,num_lags,epiweek){
       test_data_from_this_season <- ts_obj[ts_obj$season == season,]$unweighted_ili
       
       for (obs_idx in 1:(length(test_data_from_this_season)-h)){
-        pred_i <- predict_kcde(c(test_data_from_other_season,test_data_from_other_season[1:obs_idx]),k,h,num_lags,sigma,epiweek)
+        pred_i <- predict_kcde(c(test_data_from_other_season,test_data_from_this_season[1:obs_idx]),k,h,num_lags,sigma,epiweek)
        # p <- ggplot(data=data.frame(x=pred_i),aes(x=x))+ geom_histogram()
         #ggsave(paste0("pred_density-",substr(season,1,4),"-",obs_idx),plot=p,device = "png")
         ls[ls_idx] <- max(log(sum(round(pred_i,1) <= round(test_data_from_this_season[obs_idx+h],1) + .5 &round(pred_i,1) >= round(test_data_from_this_season[obs_idx+h],1) - .5 )/length(pred_i)),-10)
@@ -85,34 +88,28 @@ leave_one_season_out_cv <- function(ts_obj,k,h,num_lags,epiweek){
 get_k_step_ahead_bw <- function(data,nneighbor,week){
   possible_sigmas <- c(1e-10,.00001,.001,.01,.1,1,10,100,1000)
   
-  best_sigmas <- rep(NA,33)
-  for (h in 1:33){
-    max_sigma_idx <-  which.max(exp(leave_one_season_out_cv(flu_data_ma,300,h,4,flu_nat_week)))
+  best_sigmas <- rep(NA,1)
+  for (h in 1:1){
+    max_sigma_idx <-  which.max(exp(leave_one_season_out_cv(data,nneighbor,h,4,flu_nat_week)))
     best_sigmas[h] <-possible_sigmas[max_sigma_idx]
   }
   return (best_sigmas)
 }
-#flu <-read.csv("/Users/Graham/Desktop/cdcfluutils/data-raw/flu_data.csv")
-#flu_nat <-flu[flu$region=="National",]$weighted_ili
-#flu_nat_week <-flu[flu$region=="National",]$week
-library(cdcfluutils)
-flu_data <- download_and_preprocess_state_flu_data()
-flu_data_ma <- flu_data[flu_data$region == "Massachusetts",]
 
-#debug(predict_kcde)
-pred_dist <- predict_kcde(rep(1:4,10),10,6,4,10,flu_nat_week)
-hist(pred_dist)
-mean(pred_dist)
-#var(pred_dist)
 
-#
-#debug(leave_one_season_out_cv)
-#print(exp(leave_one_season_out_cv(flu_data_ma,300,,4,flu_nat_week)))
 
-#undebug(get_k_step_ahead_bw)
+
+library(HIDDA.forecasting)
+
+chili_data <- HIDDA.forecasting::CHILI
+data <- data.frame(unweighted_ili=chili_data)
+data$date <- rownames(as.data.frame(chili_data))
+data$season <-c(rep(1,35),rep(2:17,each=52),rep(18,20))
+data_train <- data[1:(nrow(data)-213),]
+data_test <- data[(nrow(data)-213):nrow(data),]
 
 
 #debug(leave_one_season_out_cv)
-#debug(predict_kcde)
+bw_optim <- get_k_step_ahead_bw(data_train,100,flu_nat_week)
 
-get_k_step_ahead_bw(flu_data_ma,300,flu_nat_week)
+

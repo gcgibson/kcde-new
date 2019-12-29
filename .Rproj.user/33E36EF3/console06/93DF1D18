@@ -20,3 +20,8 @@ To https://github.com/gcgibson/kcde-new.git
  * [new branch]      master -> master
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 ]0;~/KCDE_new(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ git add -A
+git reset --hard origin/master
+
+HEAD is now at 44b0583 update
+]0;~/KCDE_new(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ 
+gi]0;~/KCDE_new[?1034h(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ gi[K[Kgitad[K[K add  -A
