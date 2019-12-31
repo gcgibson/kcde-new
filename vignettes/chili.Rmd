@@ -1,0 +1,97 @@
+---
+title: "chili"
+author: "Graham Casey Gibson"
+date: "12/30/2019"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+library(quantmod)
+library(pander)
+library(kcde)
+
+library(HIDDA.forecasting)
+
+chili_data <- HIDDA.forecasting::CHILI
+data <- data.frame(unweighted_ili=chili_data)
+data$date <- rownames(as.data.frame(chili_data))
+data$season <-c(rep(1,35),rep(2:17,each=52),rep(18,20))
+data_train <- data[1:(nrow(data)-213),]
+data_test <- data[(nrow(data)-213):nrow(data),]
+data_train$val <- data_train$unweighted_ili
+data_test$val <- data_test$unweighted_ili
+
+
+
+### 1  week ahead 
+#debug(leave_one_season_out_cv)
+bw_optim <- leave_one_season_out_cv(data_train,200,h = 1,num_lags=4)
+
+sigma_optim <- bw_optim[[2]][which.max(bw_optim[[1]]),1]
+eta_optim <- bw_optim[[2]][which.max(bw_optim[[1]]),2]
+
+truth <- rep(NA,nrow(data_test))
+pred_dists <- matrix(NA,ncol=10000,nrow=nrow(data_test))
+
+for (test_idx in 1:nrow(data_test)){
+  pred_dists[test_idx,] <- predict_seasonal_kcde(c(data_train$unweighted_ili,data_test$unweighted_ili[1:test_idx]),k = 50,h = 1,num_lags = 4,sigma = sigma_optim,eta = eta_optim)
+  truth[test_idx] <- data_test$unweighted_ili[test_idx]
+}
+#truth <- data_test$unweighted_ili[1]
+scores <- HIDDA.forecasting::scores_sample(truth,pred_dists)
+
+pander(colMeans(scores))
+
+
+```
+
+
+```{r}
+## long term stuff
+bw_optim <- leave_one_season_out_cv(data_train,50,h = 20,num_lags=4)
+
+sigma_optim <- bw_optim[[2]][which.max(bw_optim[[1]]),1]
+eta_optim <- bw_optim[[2]][which.max(bw_optim[[1]]),2]
+
+truth <- rep(NA,30*4)
+pred_dists <- matrix(NA,ncol=10000,nrow=30*4)
+
+truth_idx <- 1
+
+
+for (test_idx in 1:30){
+  pred_dists[truth_idx,] <- predict_seasonal_kcde(data_train$unweighted_ili,k = 200,h = test_idx,num_lags = 4,sigma = sigma_optim,eta=eta_optim)
+  truth[truth_idx] <- data_test$unweighted_ili[test_idx]
+  truth_idx <- truth_idx+1
+}
+
+
+for (test_idx in 1:30){
+  pred_dists[truth_idx,] <- predict_seasonal_kcde(c(data_train$unweighted_ili,data_test$unweighted_ili[1:53]),k = 200,h = test_idx,num_lags = 4,sigma = sigma_optim,eta=eta_optim)
+  truth[truth_idx] <- data_test$unweighted_ili[test_idx + 53]
+  truth_idx <- truth_idx+1
+}
+
+for (test_idx in 1:30){
+  pred_dists[truth_idx,] <- predict_seasonal_kcde(c(data_train$unweighted_ili,data_test$unweighted_ili[1:105]),k = 200,h = test_idx,num_lags = 4,sigma = sigma_optim,eta=eta_optim)
+  truth[truth_idx] <- data_test$unweighted_ili[test_idx + 105]
+  truth_idx <- truth_idx+1
+}
+
+for (test_idx in 1:30){
+  pred_dists[truth_idx,] <- predict_seasonal_kcde(c(data_train$unweighted_ili,data_test$unweighted_ili[1:157]),k = 200,h = test_idx,num_lags = 4,sigma = sigma_optim,eta=eta_optim)
+  truth[truth_idx] <- data_test$unweighted_ili[test_idx + 157]
+  truth_idx <- truth_idx+1
+}
+
+
+
+
+
+scores <- HIDDA.forecasting::scores_sample(truth,pred_dists)
+
+pander(colMeans(scores))
+
+```
