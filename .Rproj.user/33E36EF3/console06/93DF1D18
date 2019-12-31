@@ -57,3 +57,519 @@ Fast-forward
  prediction.R | 105 [32m+++++++++++++++++++++++++++++++++[m[31m--[m
  1 file changed, 100 insertions(+), 5 deletions(-)
 ]0;~/KCDE_new[?1034h(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ git add -A
+]0;~/KCDE_new(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ gi[K[Kgit ps[Kush origi n m[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[Kcommit m[K0m  
+]0;~/KCDE_new(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ git add -A[K[K[K[K[K[K[Kc[K commit -m  'u[K[K"update" 
+[master 878476c] update
+ 494 files changed, 460 insertions(+), 227 deletions(-)
+ create mode 100644 .Rbuildignore
+ create mode 100644 DESCRIPTION
+ create mode 100644 NAMESPACE
+ create mode 100644 R/kernels.R
+ create mode 100644 R/loo_cv.R
+ create mode 100644 R/predict.R
+ create mode 100644 man/get_k_step_ahead_bw.Rd
+ create mode 100644 man/periodic.Rd
+ create mode 100644 man/possible_sigmas.Rd
+ create mode 100644 man/rbf.Rd
+ delete mode 100644 pred_density-2010-1
+ delete mode 100644 pred_density-2010-10
+ delete mode 100644 pred_density-2010-11
+ delete mode 100644 pred_density-2010-12
+ delete mode 100644 pred_density-2010-13
+ delete mode 100644 pred_density-2010-14
+ delete mode 100644 pred_density-2010-15
+ delete mode 100644 pred_density-2010-16
+ delete mode 100644 pred_density-2010-17
+ delete mode 100644 pred_density-2010-18
+ delete mode 100644 pred_density-2010-19
+ delete mode 100644 pred_density-2010-2
+ delete mode 100644 pred_density-2010-20
+ delete mode 100644 pred_density-2010-21
+ delete mode 100644 pred_density-2010-22
+ delete mode 100644 pred_density-2010-23
+ delete mode 100644 pred_density-2010-24
+ delete mode 100644 pred_density-2010-25
+ delete mode 100644 pred_density-2010-26
+ delete mode 100644 pred_density-2010-27
+ delete mode 100644 pred_density-2010-28
+ delete mode 100644 pred_density-2010-29
+ delete mode 100644 pred_density-2010-3
+ delete mode 100644 pred_density-2010-30
+ delete mode 100644 pred_density-2010-31
+ delete mode 100644 pred_density-2010-32
+ delete mode 100644 pred_density-2010-33
+ delete mode 100644 pred_density-2010-34
+ delete mode 100644 pred_density-2010-35
+ delete mode 100644 pred_density-2010-36
+ delete mode 100644 pred_density-2010-37
+ delete mode 100644 pred_density-2010-38
+ delete mode 100644 pred_density-2010-39
+ delete mode 100644 pred_density-2010-4
+ delete mode 100644 pred_density-2010-40
+ delete mode 100644 pred_density-2010-41
+ delete mode 100644 pred_density-2010-42
+ delete mode 100644 pred_density-2010-5
+ delete mode 100644 pred_density-2010-6
+ delete mode 100644 pred_density-2010-7
+ delete mode 100644 pred_density-2010-8
+ delete mode 100644 pred_density-2010-9
+ delete mode 100644 pred_density-2011-1
+ delete mode 100644 pred_density-2011-10
+ delete mode 100644 pred_density-2011-11
+ delete mode 100644 pred_density-2011-12
+ delete mode 100644 pred_density-2011-13
+ delete mode 100644 pred_density-2011-14
+ delete mode 100644 pred_density-2011-15
+ delete mode 100644 pred_density-2011-16
+ delete mode 100644 pred_density-2011-17
+ delete mode 100644 pred_density-2011-18
+ delete mode 100644 pred_density-2011-19
+ delete mode 100644 pred_density-2011-2
+ delete mode 100644 pred_density-2011-20
+ delete mode 100644 pred_density-2011-21
+ delete mode 100644 pred_density-2011-22
+ delete mode 100644 pred_density-2011-23
+ delete mode 100644 pred_density-2011-24
+ delete mode 100644 pred_density-2011-25
+ delete mode 100644 pred_density-2011-26
+ delete mode 100644 pred_density-2011-27
+ delete mode 100644 pred_density-2011-28
+ delete mode 100644 pred_density-2011-29
+ delete mode 100644 pred_density-2011-3
+ delete mode 100644 pred_density-2011-30
+ delete mode 100644 pred_density-2011-31
+ delete mode 100644 pred_density-2011-32
+ delete mode 100644 pred_density-2011-33
+ delete mode 100644 pred_density-2011-34
+ delete mode 100644 pred_density-2011-35
+ delete mode 100644 pred_density-2011-36
+ delete mode 100644 pred_density-2011-37
+ delete mode 100644 pred_density-2011-38
+ delete mode 100644 pred_density-2011-39
+ delete mode 100644 pred_density-2011-4
+ delete mode 100644 pred_density-2011-40
+ delete mode 100644 pred_density-2011-41
+ delete mode 100644 pred_density-2011-42
+ delete mode 100644 pred_density-2011-43
+ delete mode 100644 pred_density-2011-44
+ delete mode 100644 pred_density-2011-45
+ delete mode 100644 pred_density-2011-46
+ delete mode 100644 pred_density-2011-47
+ delete mode 100644 pred_density-2011-48
+ delete mode 100644 pred_density-2011-49
+ delete mode 100644 pred_density-2011-5
+ delete mode 100644 pred_density-2011-50
+ delete mode 100644 pred_density-2011-51
+ delete mode 100644 pred_density-2011-6
+ delete mode 100644 pred_density-2011-7
+ delete mode 100644 pred_density-2011-8
+ delete mode 100644 pred_density-2011-9
+ delete mode 100644 pred_density-2012-1
+ delete mode 100644 pred_density-2012-10
+ delete mode 100644 pred_density-2012-11
+ delete mode 100644 pred_density-2012-12
+ delete mode 100644 pred_density-2012-13
+ delete mode 100644 pred_density-2012-14
+ delete mode 100644 pred_density-2012-15
+ delete mode 100644 pred_density-2012-16
+ delete mode 100644 pred_density-2012-17
+ delete mode 100644 pred_density-2012-18
+ delete mode 100644 pred_density-2012-19
+ delete mode 100644 pred_density-2012-2
+ delete mode 100644 pred_density-2012-20
+ delete mode 100644 pred_density-2012-21
+ delete mode 100644 pred_density-2012-22
+ delete mode 100644 pred_density-2012-23
+ delete mode 100644 pred_density-2012-24
+ delete mode 100644 pred_density-2012-25
+ delete mode 100644 pred_density-2012-26
+ delete mode 100644 pred_density-2012-27
+ delete mode 100644 pred_density-2012-28
+ delete mode 100644 pred_density-2012-29
+ delete mode 100644 pred_density-2012-3
+ delete mode 100644 pred_density-2012-30
+ delete mode 100644 pred_density-2012-31
+ delete mode 100644 pred_density-2012-32
+ delete mode 100644 pred_density-2012-33
+ delete mode 100644 pred_density-2012-34
+ delete mode 100644 pred_density-2012-35
+ delete mode 100644 pred_density-2012-36
+ delete mode 100644 pred_density-2012-37
+ delete mode 100644 pred_density-2012-38
+ delete mode 100644 pred_density-2012-39
+ delete mode 100644 pred_density-2012-4
+ delete mode 100644 pred_density-2012-40
+ delete mode 100644 pred_density-2012-41
+ delete mode 100644 pred_density-2012-42
+ delete mode 100644 pred_density-2012-43
+ delete mode 100644 pred_density-2012-44
+ delete mode 100644 pred_density-2012-45
+ delete mode 100644 pred_density-2012-46
+ delete mode 100644 pred_density-2012-47
+ delete mode 100644 pred_density-2012-48
+ delete mode 100644 pred_density-2012-49
+ delete mode 100644 pred_density-2012-5
+ delete mode 100644 pred_density-2012-50
+ delete mode 100644 pred_density-2012-51
+ delete mode 100644 pred_density-2012-6
+ delete mode 100644 pred_density-2012-7
+ delete mode 100644 pred_density-2012-8
+ delete mode 100644 pred_density-2012-9
+ delete mode 100644 pred_density-2013-1
+ delete mode 100644 pred_density-2013-10
+ delete mode 100644 pred_density-2013-11
+ delete mode 100644 pred_density-2013-12
+ delete mode 100644 pred_density-2013-13
+ delete mode 100644 pred_density-2013-14
+ delete mode 100644 pred_density-2013-15
+ delete mode 100644 pred_density-2013-16
+ delete mode 100644 pred_density-2013-17
+ delete mode 100644 pred_density-2013-18
+ delete mode 100644 pred_density-2013-19
+ delete mode 100644 pred_density-2013-2
+ delete mode 100644 pred_density-2013-20
+ delete mode 100644 pred_density-2013-21
+ delete mode 100644 pred_density-2013-22
+ delete mode 100644 pred_density-2013-23
+ delete mode 100644 pred_density-2013-24
+ delete mode 100644 pred_density-2013-25
+ delete mode 100644 pred_density-2013-26
+ delete mode 100644 pred_density-2013-27
+ delete mode 100644 pred_density-2013-28
+ delete mode 100644 pred_density-2013-29
+ delete mode 100644 pred_density-2013-3
+ delete mode 100644 pred_density-2013-30
+ delete mode 100644 pred_density-2013-31
+ delete mode 100644 pred_density-2013-32
+ delete mode 100644 pred_density-2013-33
+ delete mode 100644 pred_density-2013-34
+ delete mode 100644 pred_density-2013-35
+ delete mode 100644 pred_density-2013-36
+ delete mode 100644 pred_density-2013-37
+ delete mode 100644 pred_density-2013-38
+ delete mode 100644 pred_density-2013-39
+ delete mode 100644 pred_density-2013-4
+ delete mode 100644 pred_density-2013-40
+ delete mode 100644 pred_density-2013-41
+ delete mode 100644 pred_density-2013-42
+ delete mode 100644 pred_density-2013-43
+ delete mode 100644 pred_density-2013-44
+ delete mode 100644 pred_density-2013-45
+ delete mode 100644 pred_density-2013-46
+ delete mode 100644 pred_density-2013-47
+ delete mode 100644 pred_density-2013-48
+ delete mode 100644 pred_density-2013-49
+ delete mode 100644 pred_density-2013-5
+ delete mode 100644 pred_density-2013-50
+ delete mode 100644 pred_density-2013-51
+ delete mode 100644 pred_density-2013-6
+ delete mode 100644 pred_density-2013-7
+ delete mode 100644 pred_density-2013-8
+ delete mode 100644 pred_density-2013-9
+ delete mode 100644 pred_density-2014-1
+ delete mode 100644 pred_density-2014-10
+ delete mode 100644 pred_density-2014-11
+ delete mode 100644 pred_density-2014-12
+ delete mode 100644 pred_density-2014-13
+ delete mode 100644 pred_density-2014-14
+ delete mode 100644 pred_density-2014-15
+ delete mode 100644 pred_density-2014-16
+ delete mode 100644 pred_density-2014-17
+ delete mode 100644 pred_density-2014-18
+ delete mode 100644 pred_density-2014-19
+ delete mode 100644 pred_density-2014-2
+ delete mode 100644 pred_density-2014-20
+ delete mode 100644 pred_density-2014-21
+ delete mode 100644 pred_density-2014-22
+ delete mode 100644 pred_density-2014-23
+ delete mode 100644 pred_density-2014-24
+ delete mode 100644 pred_density-2014-25
+ delete mode 100644 pred_density-2014-26
+ delete mode 100644 pred_density-2014-27
+ delete mode 100644 pred_density-2014-28
+ delete mode 100644 pred_density-2014-29
+ delete mode 100644 pred_density-2014-3
+ delete mode 100644 pred_density-2014-30
+ delete mode 100644 pred_density-2014-31
+ delete mode 100644 pred_density-2014-32
+ delete mode 100644 pred_density-2014-33
+ delete mode 100644 pred_density-2014-34
+ delete mode 100644 pred_density-2014-35
+ delete mode 100644 pred_density-2014-36
+ delete mode 100644 pred_density-2014-37
+ delete mode 100644 pred_density-2014-38
+ delete mode 100644 pred_density-2014-39
+ delete mode 100644 pred_density-2014-4
+ delete mode 100644 pred_density-2014-40
+ delete mode 100644 pred_density-2014-41
+ delete mode 100644 pred_density-2014-42
+ delete mode 100644 pred_density-2014-43
+ delete mode 100644 pred_density-2014-44
+ delete mode 100644 pred_density-2014-45
+ delete mode 100644 pred_density-2014-46
+ delete mode 100644 pred_density-2014-47
+ delete mode 100644 pred_density-2014-48
+ delete mode 100644 pred_density-2014-49
+ delete mode 100644 pred_density-2014-5
+ delete mode 100644 pred_density-2014-50
+ delete mode 100644 pred_density-2014-51
+ delete mode 100644 pred_density-2014-52
+ delete mode 100644 pred_density-2014-6
+ delete mode 100644 pred_density-2014-7
+ delete mode 100644 pred_density-2014-8
+ delete mode 100644 pred_density-2014-9
+ delete mode 100644 pred_density-2015-1
+ delete mode 100644 pred_density-2015-10
+ delete mode 100644 pred_density-2015-11
+ delete mode 100644 pred_density-2015-12
+ delete mode 100644 pred_density-2015-13
+ delete mode 100644 pred_density-2015-14
+ delete mode 100644 pred_density-2015-15
+ delete mode 100644 pred_density-2015-16
+ delete mode 100644 pred_density-2015-17
+ delete mode 100644 pred_density-2015-18
+ delete mode 100644 pred_density-2015-19
+ delete mode 100644 pred_density-2015-2
+ delete mode 100644 pred_density-2015-20
+ delete mode 100644 pred_density-2015-21
+ delete mode 100644 pred_density-2015-22
+ delete mode 100644 pred_density-2015-23
+ delete mode 100644 pred_density-2015-24
+ delete mode 100644 pred_density-2015-25
+ delete mode 100644 pred_density-2015-26
+ delete mode 100644 pred_density-2015-27
+ delete mode 100644 pred_density-2015-28
+ delete mode 100644 pred_density-2015-29
+ delete mode 100644 pred_density-2015-3
+ delete mode 100644 pred_density-2015-30
+ delete mode 100644 pred_density-2015-31
+ delete mode 100644 pred_density-2015-32
+ delete mode 100644 pred_density-2015-33
+ delete mode 100644 pred_density-2015-34
+ delete mode 100644 pred_density-2015-35
+ delete mode 100644 pred_density-2015-36
+ delete mode 100644 pred_density-2015-37
+ delete mode 100644 pred_density-2015-38
+ delete mode 100644 pred_density-2015-39
+ delete mode 100644 pred_density-2015-4
+ delete mode 100644 pred_density-2015-40
+ delete mode 100644 pred_density-2015-41
+ delete mode 100644 pred_density-2015-42
+ delete mode 100644 pred_density-2015-43
+ delete mode 100644 pred_density-2015-44
+ delete mode 100644 pred_density-2015-45
+ delete mode 100644 pred_density-2015-46
+ delete mode 100644 pred_density-2015-47
+ delete mode 100644 pred_density-2015-48
+ delete mode 100644 pred_density-2015-49
+ delete mode 100644 pred_density-2015-5
+ delete mode 100644 pred_density-2015-50
+ delete mode 100644 pred_density-2015-51
+ delete mode 100644 pred_density-2015-6
+ delete mode 100644 pred_density-2015-7
+ delete mode 100644 pred_density-2015-8
+ delete mode 100644 pred_density-2015-9
+ delete mode 100644 pred_density-2016-1
+ delete mode 100644 pred_density-2016-10
+ delete mode 100644 pred_density-2016-11
+ delete mode 100644 pred_density-2016-12
+ delete mode 100644 pred_density-2016-13
+ delete mode 100644 pred_density-2016-14
+ delete mode 100644 pred_density-2016-15
+ delete mode 100644 pred_density-2016-16
+ delete mode 100644 pred_density-2016-17
+ delete mode 100644 pred_density-2016-18
+ delete mode 100644 pred_density-2016-19
+ delete mode 100644 pred_density-2016-2
+ delete mode 100644 pred_density-2016-20
+ delete mode 100644 pred_density-2016-21
+ delete mode 100644 pred_density-2016-22
+ delete mode 100644 pred_density-2016-23
+ delete mode 100644 pred_density-2016-24
+ delete mode 100644 pred_density-2016-25
+ delete mode 100644 pred_density-2016-26
+ delete mode 100644 pred_density-2016-27
+ delete mode 100644 pred_density-2016-28
+ delete mode 100644 pred_density-2016-29
+ delete mode 100644 pred_density-2016-3
+ delete mode 100644 pred_density-2016-30
+ delete mode 100644 pred_density-2016-31
+ delete mode 100644 pred_density-2016-32
+ delete mode 100644 pred_density-2016-33
+ delete mode 100644 pred_density-2016-34
+ delete mode 100644 pred_density-2016-35
+ delete mode 100644 pred_density-2016-36
+ delete mode 100644 pred_density-2016-37
+ delete mode 100644 pred_density-2016-38
+ delete mode 100644 pred_density-2016-39
+ delete mode 100644 pred_density-2016-4
+ delete mode 100644 pred_density-2016-40
+ delete mode 100644 pred_density-2016-41
+ delete mode 100644 pred_density-2016-42
+ delete mode 100644 pred_density-2016-43
+ delete mode 100644 pred_density-2016-44
+ delete mode 100644 pred_density-2016-45
+ delete mode 100644 pred_density-2016-46
+ delete mode 100644 pred_density-2016-47
+ delete mode 100644 pred_density-2016-48
+ delete mode 100644 pred_density-2016-49
+ delete mode 100644 pred_density-2016-5
+ delete mode 100644 pred_density-2016-50
+ delete mode 100644 pred_density-2016-51
+ delete mode 100644 pred_density-2016-6
+ delete mode 100644 pred_density-2016-7
+ delete mode 100644 pred_density-2016-8
+ delete mode 100644 pred_density-2016-9
+ delete mode 100644 pred_density-2017-1
+ delete mode 100644 pred_density-2017-10
+ delete mode 100644 pred_density-2017-11
+ delete mode 100644 pred_density-2017-12
+ delete mode 100644 pred_density-2017-13
+ delete mode 100644 pred_density-2017-14
+ delete mode 100644 pred_density-2017-15
+ delete mode 100644 pred_density-2017-16
+ delete mode 100644 pred_density-2017-17
+ delete mode 100644 pred_density-2017-18
+ delete mode 100644 pred_density-2017-19
+ delete mode 100644 pred_density-2017-2
+ delete mode 100644 pred_density-2017-20
+ delete mode 100644 pred_density-2017-21
+ delete mode 100644 pred_density-2017-22
+ delete mode 100644 pred_density-2017-23
+ delete mode 100644 pred_density-2017-24
+ delete mode 100644 pred_density-2017-25
+ delete mode 100644 pred_density-2017-26
+ delete mode 100644 pred_density-2017-27
+ delete mode 100644 pred_density-2017-28
+ delete mode 100644 pred_density-2017-29
+ delete mode 100644 pred_density-2017-3
+ delete mode 100644 pred_density-2017-30
+ delete mode 100644 pred_density-2017-31
+ delete mode 100644 pred_density-2017-32
+ delete mode 100644 pred_density-2017-33
+ delete mode 100644 pred_density-2017-34
+ delete mode 100644 pred_density-2017-35
+ delete mode 100644 pred_density-2017-36
+ delete mode 100644 pred_density-2017-37
+ delete mode 100644 pred_density-2017-38
+ delete mode 100644 pred_density-2017-39
+ delete mode 100644 pred_density-2017-4
+ delete mode 100644 pred_density-2017-40
+ delete mode 100644 pred_density-2017-41
+ delete mode 100644 pred_density-2017-42
+ delete mode 100644 pred_density-2017-43
+ delete mode 100644 pred_density-2017-44
+ delete mode 100644 pred_density-2017-45
+ delete mode 100644 pred_density-2017-46
+ delete mode 100644 pred_density-2017-47
+ delete mode 100644 pred_density-2017-48
+ delete mode 100644 pred_density-2017-49
+ delete mode 100644 pred_density-2017-5
+ delete mode 100644 pred_density-2017-50
+ delete mode 100644 pred_density-2017-51
+ delete mode 100644 pred_density-2017-6
+ delete mode 100644 pred_density-2017-7
+ delete mode 100644 pred_density-2017-8
+ delete mode 100644 pred_density-2017-9
+ delete mode 100644 pred_density-2018-1
+ delete mode 100644 pred_density-2018-10
+ delete mode 100644 pred_density-2018-11
+ delete mode 100644 pred_density-2018-12
+ delete mode 100644 pred_density-2018-13
+ delete mode 100644 pred_density-2018-14
+ delete mode 100644 pred_density-2018-15
+ delete mode 100644 pred_density-2018-16
+ delete mode 100644 pred_density-2018-17
+ delete mode 100644 pred_density-2018-18
+ delete mode 100644 pred_density-2018-19
+ delete mode 100644 pred_density-2018-2
+ delete mode 100644 pred_density-2018-20
+ delete mode 100644 pred_density-2018-21
+ delete mode 100644 pred_density-2018-22
+ delete mode 100644 pred_density-2018-23
+ delete mode 100644 pred_density-2018-24
+ delete mode 100644 pred_density-2018-25
+ delete mode 100644 pred_density-2018-26
+ delete mode 100644 pred_density-2018-27
+ delete mode 100644 pred_density-2018-28
+ delete mode 100644 pred_density-2018-29
+ delete mode 100644 pred_density-2018-3
+ delete mode 100644 pred_density-2018-30
+ delete mode 100644 pred_density-2018-31
+ delete mode 100644 pred_density-2018-32
+ delete mode 100644 pred_density-2018-33
+ delete mode 100644 pred_density-2018-34
+ delete mode 100644 pred_density-2018-35
+ delete mode 100644 pred_density-2018-36
+ delete mode 100644 pred_density-2018-37
+ delete mode 100644 pred_density-2018-38
+ delete mode 100644 pred_density-2018-39
+ delete mode 100644 pred_density-2018-4
+ delete mode 100644 pred_density-2018-40
+ delete mode 100644 pred_density-2018-41
+ delete mode 100644 pred_density-2018-42
+ delete mode 100644 pred_density-2018-43
+ delete mode 100644 pred_density-2018-44
+ delete mode 100644 pred_density-2018-45
+ delete mode 100644 pred_density-2018-46
+ delete mode 100644 pred_density-2018-47
+ delete mode 100644 pred_density-2018-48
+ delete mode 100644 pred_density-2018-49
+ delete mode 100644 pred_density-2018-5
+ delete mode 100644 pred_density-2018-50
+ delete mode 100644 pred_density-2018-51
+ delete mode 100644 pred_density-2018-6
+ delete mode 100644 pred_density-2018-7
+ delete mode 100644 pred_density-2018-8
+ delete mode 100644 pred_density-2018-9
+ delete mode 100644 pred_density-2019-1
+ delete mode 100644 pred_density-2019-10
+ delete mode 100644 pred_density-2019-11
+ delete mode 100644 pred_density-2019-12
+ delete mode 100644 pred_density-2019-13
+ delete mode 100644 pred_density-2019-14
+ delete mode 100644 pred_density-2019-15
+ delete mode 100644 pred_density-2019-16
+ delete mode 100644 pred_density-2019-17
+ delete mode 100644 pred_density-2019-18
+ delete mode 100644 pred_density-2019-19
+ delete mode 100644 pred_density-2019-2
+ delete mode 100644 pred_density-2019-3
+ delete mode 100644 pred_density-2019-4
+ delete mode 100644 pred_density-2019-5
+ delete mode 100644 pred_density-2019-6
+ delete mode 100644 pred_density-2019-7
+ delete mode 100644 pred_density-2019-8
+ delete mode 100644 pred_density-2019-9
+ delete mode 100644 prediction.R
+ create mode 100644 vignettes/chili.Rmd
+]0;~/KCDE_new(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ git push origi n master
+Enumerating objects: 57, done.
+Counting objects:   1% (1/57)   Counting objects:   3% (2/57)   Counting objects:   5% (3/57)   Counting objects:   7% (4/57)   Counting objects:   8% (5/57)   Counting objects:  10% (6/57)   Counting objects:  12% (7/57)   Counting objects:  14% (8/57)   Counting objects:  15% (9/57)   Counting objects:  17% (10/57)   Counting objects:  19% (11/57)   Counting objects:  21% (12/57)   Counting objects:  22% (13/57)   Counting objects:  24% (14/57)   Counting objects:  26% (15/57)   Counting objects:  28% (16/57)   Counting objects:  29% (17/57)   Counting objects:  31% (18/57)   Counting objects:  33% (19/57)   Counting objects:  35% (20/57)   Counting objects:  36% (21/57)   Counting objects:  38% (22/57)   Counting objects:  40% (23/57)   Counting objects:  42% (24/57)   Counting objects:  43% (25/57)   Counting objects:  45% (26/57)   Counting objects:  47% (27/57)   Counting objects:  49% (28/57)   Counting objects:  50% (29/57)   Counting objects:  52% (30/57)   Counting objects:  54% (31/57)   Counting objects:  56% (32/57)   Counting objects:  57% (33/57)   Counting objects:  59% (34/57)   Counting objects:  61% (35/57)   Counting objects:  63% (36/57)   Counting objects:  64% (37/57)   Counting objects:  66% (38/57)   Counting objects:  68% (39/57)   Counting objects:  70% (40/57)   Counting objects:  71% (41/57)   Counting objects:  73% (42/57)   Counting objects:  75% (43/57)   Counting objects:  77% (44/57)   Counting objects:  78% (45/57)   Counting objects:  80% (46/57)   Counting objects:  82% (47/57)   Counting objects:  84% (48/57)   Counting objects:  85% (49/57)   Counting objects:  87% (50/57)   Counting objects:  89% (51/57)   Counting objects:  91% (52/57)   Counting objects:  92% (53/57)   Counting objects:  94% (54/57)   Counting objects:  96% (55/57)   Counting objects:  98% (56/57)   Counting objects: 100% (57/57)   Counting objects: 100% (57/57), done.
+Delta compression using up to 4 threads
+Compressing objects:   3% (1/31)   Compressing objects:   6% (2/31)   Compressing objects:   9% (3/31)   Compressing objects:  12% (4/31)   Compressing objects:  16% (5/31)   Compressing objects:  19% (6/31)   Compressing objects:  22% (7/31)   Compressing objects:  25% (8/31)   Compressing objects:  29% (9/31)   Compressing objects:  32% (10/31)   Compressing objects:  35% (11/31)   Compressing objects:  38% (12/31)   Compressing objects:  41% (13/31)   Compressing objects:  45% (14/31)   Compressing objects:  48% (15/31)   Compressing objects:  51% (16/31)   Compressing objects:  54% (17/31)   Compressing objects:  58% (18/31)   Compressing objects:  61% (19/31)   Compressing objects:  64% (20/31)   Compressing objects:  67% (21/31)   Compressing objects:  70% (22/31)   Compressing objects:  74% (23/31)   Compressing objects:  77% (24/31)   Compressing objects:  80% (25/31)   Compressing objects:  83% (26/31)   Compressing objects:  87% (27/31)   Compressing objects:  90% (28/31)   Compressing objects:  93% (29/31)   Compressing objects:  96% (30/31)   Compressing objects: 100% (31/31)   Compressing objects: 100% (31/31), done.
+Writing objects:   2% (1/36)   Writing objects:   5% (2/36)   Writing objects:   8% (3/36)   Writing objects:  11% (4/36)   Writing objects:  13% (5/36)   Writing objects:  16% (6/36)   Writing objects:  19% (7/36)   Writing objects:  22% (8/36)   Writing objects:  25% (9/36)   Writing objects:  27% (10/36)   Writing objects:  30% (11/36)   Writing objects:  33% (12/36)   Writing objects:  36% (13/36)   Writing objects:  38% (14/36)   Writing objects:  41% (15/36)   Writing objects:  44% (16/36)   Writing objects:  47% (17/36)   Writing objects:  50% (18/36)   Writing objects:  52% (19/36)   Writing objects:  55% (20/36)   Writing objects:  58% (21/36)   Writing objects:  61% (22/36)   Writing objects:  63% (23/36)   Writing objects:  66% (24/36)   Writing objects:  69% (25/36)   Writing objects:  72% (26/36)   Writing objects:  75% (27/36)   Writing objects:  77% (28/36)   Writing objects:  80% (29/36)   Writing objects:  83% (30/36)   Writing objects:  86% (31/36)   Writing objects:  88% (32/36)   Writing objects:  91% (33/36)   Writing objects:  94% (34/36)   Writing objects:  97% (35/36)   Writing objects: 100% (36/36)   Writing objects: 100% (36/36), 8.40 KiB | 79.00 KiB/s, done.
+Total 36 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/5)[Kremote: Resolving deltas:  20% (1/5)[Kremote: Resolving deltas:  40% (2/5)[Kremote: Resolving deltas:  60% (3/5)[Kremote: Resolving deltas:  80% (4/5)[Kremote: Resolving deltas: 100% (5/5)[Kremote: Resolving deltas: 100% (5/5), completed with 5 local objects.[K
+To https://github.com/gcgibson/kcde-new.git
+   59bcd38..878476c  master -> master
+]0;~/KCDE_new(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ git push originn master[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/33E36EF3/console06/93DF1D18[m
+	[31mmodified:   .Rproj.user/33E36EF3/console06/93DF1D18.env[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31mvignettes/chili.pdf[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;~/KCDE_new(base) gcgibsons-MacBook-Pro:KCDE_new gcgibson$ git add -A
