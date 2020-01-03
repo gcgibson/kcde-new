@@ -12,7 +12,13 @@ source('R/kernels.R')
 
 #' @rdname predict_seasonal_kcde
 #' @export predict_seasonal_kcde
-predict_seasonal_kcde <- function(ts,k,h,num_lags,sigma,eta){
+predict_seasonal_kcde <- function(ts,k,h,num_lags,sigma,eta,sd){
+  
+  ret_list <- do_box_cox(ts)
+  lambda <- ret_list[[2]]
+  ts <- ret_list[[1]]
+  
+  
   # create matrix with dimensions length(ts) by number of lags 
   design_matrix <- matrix(NA,nrow=length(ts),ncol=num_lags)
   for (i in 0:(num_lags-1)){
@@ -45,8 +51,12 @@ predict_seasonal_kcde <- function(ts,k,h,num_lags,sigma,eta){
   
   # get h-step ahead ts values for each k nearest neighbor of design matrix
   # with probabilities correspnding to the similarities
-  pred_density <- sample(ts[top_k_similar_ys+num_lags-1+h],10000,prob=top_k_similar,replace=T)
-  
+  if (sum(top_k_similar) == 0){
+    top_k_similar <- rep(1/length(top_k_similar),length(top_k_similar))
+    print (paste("no nearest neighbor for",sigma,eta))
+  }
+  pred_density <- pmax(rnorm(10000,mean=sample(ts[top_k_similar_ys+num_lags-1+h],10000,prob=top_k_similar,replace=T),sd=sd),0)
+  pred_density <- invert_bc_transform(pred_density,lambda,.5)
   return(pred_density)
 }
 

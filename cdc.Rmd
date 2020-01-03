@@ -1,0 +1,118 @@
+---
+title: "CDC"
+author: "Graham Casey Gibson"
+date: "1/1/2020"
+output: pdf_document
+---
+```{r}
+score_dist <- function(truth_vec, pred_dist){
+  score_vec <-rep(NA,length(truth_vec))
+  for (idx in 1:length(truth_vec)){
+    pred_dist_no_na <- pred_dist[idx,][!is.na(pred_dist[idx,])]
+    score_vec[idx] <- sum(pred_dist_no_na <= truth_vec[idx] +.0001 & pred_dist_no_na >= truth[idx] -.0001)/length(pred_dist[idx,])
+  }
+  return (score_vec)
+}
+
+score_using_flusight_tools <- function(traj_samples,location,test_idx,h){
+  pred_to_write <-get_predx_forecasts_from_trajectory_samples(trajectory_samples = matrix(traj_samples,ncol=1),location = location,targets = c(paste0(h," wk ahead")), season = "none", analysis_time_season_week = 0, first_analysis_time_season_week = 0, last_analysis_time_season_week = 0, predx_types = c("Sample", "Bin", "Point"))
+  
+   submission_df <- predx_to_submission_df(pred_to_write, ew = tail(flu_data$week,1), year = substr(tail(flu_data$season,1),1,4), team = "KCDE")
+  submission_df$forecast_week <- nat_data$week[100+test_idx]
+  submission_df$forecast_week <- as.integer(submission_df$forecast_week)
+  write.csv(submission_df, file =paste0("./",test_idx,"-","-ReichLab_kcde.csv"))
+  
+  # create the truth template and populate it with the correct value 
+  # in order to use the cdc flusight scoring
+  truth_template <- FluSight::create_truth(year=2018)
+  truth_template <- truth_template[1,]
+  truth_template$forecast_week <- as.character(nat_data$week[100+test_idx])
+  truth_template$location <- location
+  truth_template$target <- paste0(h," wk ahead")
+  truth_template$bin_start_incl <- as.character(round(nat_data_ili_test[test_idx+h],1))
+
+  score<-FluSight::score_entry(FluSight::read_entry(paste0(test_idx,"--ReichLab_kcde.csv")) ,truth=truth_template)
+  return (score[score$location==location &score$target==paste0(h," wk ahead"),]$score)
+}
+
+library(quantmod)
+library(pander)
+library(kcde)
+library(cdcfluview)
+library(sarimaTD)
+library(cdcfluutils)
+library(ggplot2)
+
+nat_data <-cdcfluview::ilinet(region="state",years = 2016:2019)
+location <- "Maine"
+nat_data <- nat_data[nat_data$region == location,]
+nat_data_ili <- nat_data$unweighted_ili
+
+
+nat_data_ili_train <- head(nat_data_ili,100)
+nat_data_ili_test <- tail(nat_data_ili,68)
+
+nat_data_ili_train_obj <- data.frame(val = nat_data_ili_train,season=nat_data[1:100,]$year,date = nat_data[1:100,]$week_start)
+
+bw_optim <- leave_one_season_out_cv(nat_data_ili_train_obj,100,h =1,num_lags=4,sd=.1)
+
+
+sigma_optim <- bw_optim[[2]][which.max(bw_optim[[1]]),1]
+eta_optim <- bw_optim[[2]][which.max(bw_optim[[1]]),2]
+
+
+
+kcde_pred_dists <- matrix(NA,ncol=10000,nrow=length(nat_data_ili_test))
+kcde_scores <- c()
+for (test_idx in 1:length(nat_data_ili_test)){
+  kcde_pred_dists[test_idx,] <- predict_seasonal_kcde(c(nat_data_ili_train,nat_data_ili_test[1:test_idx]),k = 100,h = 1,num_lags = 4,sigma = sigma_optim,eta = eta_optim,sd = .1)
+  
+   data_for_plot <- data.frame(val=kcde_pred_dists[test_idx,])
+   p <- ggplot(data_for_plot,aes(x=val)) + geom_histogram()
+   p <- p + geom_vline(xintercept = nat_data_ili_test[test_idx])
+   ggsave(paste0("kcde",test_idx),p,device = "png")
+  
+   kcde_scores <- c(kcde_scores,score_using_flusight_tools( kcde_pred_dists[test_idx,],location,test_idx,h=1) )
+  
+}
+
+
+
+
+
+
+sarima_fit_bc_transform <- fit_sarima(
+  y = nat_data_ili_train,
+  ts_frequency = 52,
+  transformation = "box-cox",
+  seasonal_difference = TRUE)
+
+sarima_pred_dists <- matrix(NA,ncol=10000,nrow=length(nat_data_ili_test))
+sarima_scores <- c()
+for (test_idx in 1:length(nat_data_ili_test)){
+  sarima_pred_dists[test_idx,] <- pmax(simulate(
+    object = sarima_fit_bc_transform,
+    nsim = 10000,
+    seed = 1,
+    newdata = c(nat_data_ili_train,nat_data_ili_test[1:test_idx]),
+    h = 1
+  ),0)
+  
+   data_for_plot <- data.frame(val=sarima_pred_dists[test_idx,])
+   p <- ggplot(data_for_plot,aes(x=val)) + geom_histogram()
+   p <- p + geom_vline(xintercept = nat_data_ili_test[test_idx])
+   ggsave(paste0("sarima",test_idx),p,device = "png")
+  sarima_scores <- c(sarima_scores,score_using_flusight_tools( sarima_pred_dists[test_idx,],location,test_idx,h=1) )
+  
+}
+
+
+print(mean(kcde_scores))
+print(mean(sarima_scores))
+
+
+
+```
+
+
+
