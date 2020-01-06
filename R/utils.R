@@ -1,8 +1,8 @@
 
 
 do_box_cox <- function(y) {
-  bc_params <- data.frame(gamma=.5)
-  bc_params$lambda <- car::powerTransform(y + .1, family = "bcPower")$lambda
+  bc_params <- data.frame(gamma=.05)
+  bc_params$lambda <- car::powerTransform(y + .05, family = "bcPower")$lambda
   transformed_y <- car::bcPower(
     U = y + bc_params$gamma,
     lambda = bc_params$lambda)
