@@ -1,5 +1,12 @@
+#' @rdname score_dist
+#' @export score_dist
+score_dist <- function(dist,truth){
+  return (max(-10,log(sum(round(dist,1) == round(truth,1))/length(dist))))
+}
 
 
+#' @rdname do_box_cox
+#' @export do_box_cox
 do_box_cox <- function(y) {
   bc_params <- data.frame(gamma=.05)
   bc_params$lambda <- car::powerTransform(y + .05, family = "bcPower")$lambda

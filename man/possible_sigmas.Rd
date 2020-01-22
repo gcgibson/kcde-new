@@ -16,7 +16,7 @@ h = horizon
 num_lags = 4
 sigma = bandwith
 Outputs:}
-\format{An object of class \code{numeric} of length 11.}
+\format{An object of class \code{numeric} of length 3.}
 \usage{
 possible_sigmas
 }
