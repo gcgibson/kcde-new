@@ -59,14 +59,14 @@ region_abbrv <- c("nat",paste0("hhs",1:10))
 
 kcde_score_df <- matrix(NA,nrow=55*68,ncol=3)
 sarima_score_df <- matrix(NA,nrow=55*68,ncol=3)
-h <- 1
+h <- 2
 score_idx <-1
 for (location in 1:length(region_str)){
     region_str_local <- region_str[location]
     region_abbrv_local <- region_abbrv[location]
-    train_data <- get_ili_for_epiweek_and_issue("201240","201840",region_abbrv_local)
+    train_data <- get_ili_for_epiweek_and_issue("201240","201740",region_abbrv_local)
     
-    test_data <- get_ili_for_epiweek_and_issue("201840","201920",region_abbrv_local)
+    test_data <- get_ili_for_epiweek_and_issue("201740","201820",region_abbrv_local)
     
      
     ## GET SARIMA FIT
@@ -80,14 +80,16 @@ for (location in 1:length(region_str)){
     #sarima_fit_bc_transform <- auto.arima(train_data)
     print (sarima_fit_bc_transform)
 
-    rbf_fit_ret_list <- fit_rbf(train_data,1,1)
+    rbf_fit_ret_list <- fit_rbf(train_data,num_lags = 1,h = 1)
     rbf_fit <- rbf_fit_ret_list[[1]]
     rbf_fit2 <- rbf_fit_ret_list[[2]]
-    rbf_var <- rbf_fit_ret_list[[3]]
+    rbf_fit3 <- rbf_fit_ret_list[[3]]
+
+    rbf_var <- rbf_fit_ret_list[[4]]
     ## GET KCDE FIT
     #par <- fit_and_return_par(diff(train_data))
 
-    test_epiweeks <- c(201840:201852,paste0(2019,"0",1:9),201910:201918)
+    test_epiweeks <- c(201740:201752,paste0(2018,"0",1:9),201810:201818)
      
     
     for (test_idx  in 1:(length(test_epiweeks)-h)){
@@ -98,23 +100,32 @@ for (location in 1:length(region_str)){
       
       
       ### GET SARIMA PREDS
-       sarima_pred_dist<- pmax(simulate(
+       sarima_pred_dist<- simulate(
         object = sarima_fit_bc_transform,
         nsim = 10000,
         seed = 1,
         newdata = c(train_data,test_data[1:test_idx]),
-        h = 1
-      ),0)
+        h = h
+      )
+      sarima_pred_dist <- sarima_pred_dist[,2]
       
       sarima_pred_dist <- sarima_pred_dist[!is.na(sarima_pred_dist)]
       sarima_pred_dist <- sarima_pred_dist[!is.nan(sarima_pred_dist)]
 
       ### GET KCDE 
-   
-      kcde_pred_dist <-stats::predict(rbf_fit,newdata=test_idx) +
-      stats::predict(rbf_fit2,newdata=test_idx) + logit(test_data[test_idx]/100)
-
-      kcde_pred_dist <- inv.logit(rnorm(10000,kcde_pred_dist,rbf_var))*100
+      if (h==1){
+        kcde_pred_dist <-stats::predict(rbf_fit,newdata=test_idx,h=1) +
+        stats::predict(rbf_fit2,newdata=test_idx) + logit(test_data[test_idx]/100)
+      } else if(h==2){
+        kcde_pred_dist <-stats::predict(rbf_fit,newdata=test_idx) + 
+          stats::predict(rbf_fit,newdata=test_idx+1) +
+        stats::predict(rbf_fit2,newdata=test_idx )/2 +
+          stats::predict(rbf_fit2,newdata=test_idx +1 )/2+
+          stats::predict(rbf_fit3,newdata=test_idx )/6 +
+            stats::predict(rbf_fit3,newdata=test_idx +1)/6 +
+           logit(test_data[test_idx]/100)
+      }
+      kcde_pred_dist <- inv.logit(rnorm(10000,kcde_pred_dist,2*rbf_var))*100
 
       
       sarima_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( sarima_pred_dist,truth) )
@@ -132,11 +143,11 @@ for (location in 1:length(region_str)){
 
 kcde_score_df <- data.frame(kcde_score_df)
 colnames(kcde_score_df) <- c("region","epiweek","kcde_ls")
-saveRDS(object = kcde_score_df,file="kcde_score_df")
+saveRDS(object = kcde_score_df,file="kcde_score_df_2016-2017_h_2")
 
 sarima_score_df <- data.frame(sarima_score_df)
 colnames(sarima_score_df) <- c("region","epiweek","sarima_ls")
-saveRDS(object = sarima_score_df,file="sarima_score_df")
+saveRDS(object = sarima_score_df,file="sarima_score_df_2016-2017_h_2")
 
 
 print (mean(as.numeric(as.character(kcde_score_df$kcde_ls)),na.rm=T))
@@ -146,8 +157,8 @@ print (mean(as.numeric(as.character(sarima_score_df$sarima_ls)),na.rm=T))
 
 
 ```{r}
-kcde_score_df <- readRDS("kcde_score_df")
-sarima_score_df <- readRDS("sarima_score_df")
+kcde_score_df <- readRDS("kcde_score_df_2016-2017_h_2")
+sarima_score_df <- readRDS("sarima_score_df_2016-2017_h_2")
 kcde_score_df <- kcde_score_df[complete.cases(kcde_score_df),]
 sarima_score_df <- sarima_score_df[complete.cases(sarima_score_df),]
 
@@ -173,22 +184,31 @@ library(reticulate)
 #use_python("/Users/gcgibson/anaconda/bin/python2.7")
 #reticulate::source_python("test.py")
 fit_rbf <- function(ts_local,num_lags,h){
-  
     ts_local <- logit(ts_local/100)
-    
-    diff_data <- data.frame(x=rep(1:52,length.out=length(diff(ts_local))),y=diff(ts_local))
-    diff_data_2 <- data.frame(x=rep(1:52,length.out=length(diff(ts_local,differences=2))),y=diff(ts_local,differences=2))
-    loessMod10 <- loess(y ~ x, data=diff_data, span=0.10) 
-    loessMod102 <- loess(y ~ x, data=diff_data_2, span=0.10) 
 
-    
-    diff_data$factor_x <- as.factor(diff_data$x)
-    vars <- diff_data %>% group_by(factor_x) %>% summarise(var=var(y))
-    ret_list <- list()
+    if (TRUE){
+        
+        diff_data <- data.frame(x=rep(1:52,length.out=length(diff(ts_local))),y=diff(ts_local))
+        diff_data_2 <- data.frame(x=rep(1:52,length.out=length(diff(ts_local,differences=2))),y=diff(ts_local,differences=2))
+        diff_data_3 <- data.frame(x=rep(1:52,length.out=length(diff(ts_local,differences=3))),y=diff(ts_local,differences=3))
+        loessMod10 <- loess(y ~ x, data=diff_data, span=0.10) 
+        loessMod102 <- loess(y ~ x, data=diff_data_2, span=0.10) 
+        loessMod103 <- loess(y ~ x, data=diff_data_3, span=0.80) 
+
+        
+        diff_data$factor_x <- as.factor(diff_data$x)
+        vars <- diff_data %>% group_by(factor_x) %>% summarise(var=var(y))
+        ret_list <- list()
+      
+        ret_list[[1]] <- loessMod10
+        ret_list[[2]] <- loessMod102
+        ret_list[[3]] <- loessMod103
+
+        ret_list[[4]] <- sqrt(median(vars$var))
+    }
+   
   
-    ret_list[[1]] <- loessMod10
-    ret_list[[2]] <- loessMod102
-    ret_list[[3]] <- sqrt(median(vars$var))
+  
     return(ret_list)
 }
 

@@ -1798,3 +1798,836 @@ Untracked files:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ]0;~/kcde-new(base) gcgibsons-MacBook-Pro:kcde-new gcgibson$ git add -A
+]0;~/kcde-new(base) gcgibsons-MacBook-Pro:kcde-new gcgibson$ git commit m [K[K-m "update"
+[master 80a384f] update
+ 834 files changed, 1357 insertions(+), 189 deletions(-)
+ rewrite .Rproj.user/33E36EF3/console06/INDEX001 (84%)
+ create mode 100644 1-kcde-1
+ create mode 100644 1-kcde-10
+ create mode 100644 1-kcde-11
+ create mode 100644 1-kcde-12
+ create mode 100644 1-kcde-13
+ create mode 100644 1-kcde-14
+ create mode 100644 1-kcde-15
+ create mode 100644 1-kcde-16
+ create mode 100644 1-kcde-17
+ create mode 100644 1-kcde-18
+ create mode 100644 1-kcde-19
+ create mode 100644 1-kcde-2
+ create mode 100644 1-kcde-20
+ create mode 100644 1-kcde-21
+ create mode 100644 1-kcde-22
+ create mode 100644 1-kcde-23
+ create mode 100644 1-kcde-24
+ create mode 100644 1-kcde-25
+ create mode 100644 1-kcde-26
+ create mode 100644 1-kcde-27
+ create mode 100644 1-kcde-28
+ create mode 100644 1-kcde-29
+ create mode 100644 1-kcde-3
+ create mode 100644 1-kcde-30
+ create mode 100644 1-kcde-4
+ create mode 100644 1-kcde-5
+ create mode 100644 1-kcde-6
+ create mode 100644 1-kcde-7
+ create mode 100644 1-kcde-8
+ create mode 100644 1-kcde-9
+ create mode 100644 1-sarima-1
+ create mode 100644 1-sarima-10
+ create mode 100644 1-sarima-11
+ create mode 100644 1-sarima-12
+ create mode 100644 1-sarima-13
+ create mode 100644 1-sarima-14
+ create mode 100644 1-sarima-15
+ create mode 100644 1-sarima-16
+ create mode 100644 1-sarima-17
+ create mode 100644 1-sarima-18
+ create mode 100644 1-sarima-19
+ create mode 100644 1-sarima-2
+ create mode 100644 1-sarima-20
+ create mode 100644 1-sarima-21
+ create mode 100644 1-sarima-22
+ create mode 100644 1-sarima-23
+ create mode 100644 1-sarima-24
+ create mode 100644 1-sarima-25
+ create mode 100644 1-sarima-26
+ create mode 100644 1-sarima-27
+ create mode 100644 1-sarima-28
+ create mode 100644 1-sarima-29
+ create mode 100644 1-sarima-3
+ create mode 100644 1-sarima-30
+ create mode 100644 1-sarima-4
+ create mode 100644 1-sarima-5
+ create mode 100644 1-sarima-6
+ create mode 100644 1-sarima-7
+ create mode 100644 1-sarima-8
+ create mode 100644 1-sarima-9
+ create mode 100644 10-kcde-1
+ create mode 100644 10-kcde-10
+ create mode 100644 10-kcde-11
+ create mode 100644 10-kcde-12
+ create mode 100644 10-kcde-13
+ create mode 100644 10-kcde-14
+ create mode 100644 10-kcde-15
+ create mode 100644 10-kcde-16
+ create mode 100644 10-kcde-17
+ create mode 100644 10-kcde-18
+ create mode 100644 10-kcde-19
+ create mode 100644 10-kcde-2
+ create mode 100644 10-kcde-20
+ create mode 100644 10-kcde-21
+ create mode 100644 10-kcde-22
+ create mode 100644 10-kcde-23
+ create mode 100644 10-kcde-24
+ create mode 100644 10-kcde-25
+ create mode 100644 10-kcde-26
+ create mode 100644 10-kcde-27
+ create mode 100644 10-kcde-28
+ create mode 100644 10-kcde-29
+ create mode 100644 10-kcde-3
+ create mode 100644 10-kcde-30
+ create mode 100644 10-kcde-4
+ create mode 100644 10-kcde-5
+ create mode 100644 10-kcde-6
+ create mode 100644 10-kcde-7
+ create mode 100644 10-kcde-8
+ create mode 100644 10-kcde-9
+ create mode 100644 10-sarima-1
+ create mode 100644 10-sarima-10
+ create mode 100644 10-sarima-11
+ create mode 100644 10-sarima-12
+ create mode 100644 10-sarima-13
+ create mode 100644 10-sarima-14
+ create mode 100644 10-sarima-15
+ create mode 100644 10-sarima-16
+ create mode 100644 10-sarima-17
+ create mode 100644 10-sarima-18
+ create mode 100644 10-sarima-19
+ create mode 100644 10-sarima-2
+ create mode 100644 10-sarima-20
+ create mode 100644 10-sarima-21
+ create mode 100644 10-sarima-22
+ create mode 100644 10-sarima-23
+ create mode 100644 10-sarima-24
+ create mode 100644 10-sarima-25
+ create mode 100644 10-sarima-26
+ create mode 100644 10-sarima-27
+ create mode 100644 10-sarima-28
+ create mode 100644 10-sarima-29
+ create mode 100644 10-sarima-3
+ create mode 100644 10-sarima-30
+ create mode 100644 10-sarima-4
+ create mode 100644 10-sarima-5
+ create mode 100644 10-sarima-6
+ create mode 100644 10-sarima-7
+ create mode 100644 10-sarima-8
+ create mode 100644 10-sarima-9
+ create mode 100644 11-kcde-1
+ create mode 100644 11-kcde-10
+ create mode 100644 11-kcde-11
+ create mode 100644 11-kcde-12
+ create mode 100644 11-kcde-13
+ create mode 100644 11-kcde-14
+ create mode 100644 11-kcde-15
+ create mode 100644 11-kcde-16
+ create mode 100644 11-kcde-17
+ create mode 100644 11-kcde-18
+ create mode 100644 11-kcde-19
+ create mode 100644 11-kcde-2
+ create mode 100644 11-kcde-20
+ create mode 100644 11-kcde-21
+ create mode 100644 11-kcde-22
+ create mode 100644 11-kcde-23
+ create mode 100644 11-kcde-24
+ create mode 100644 11-kcde-25
+ create mode 100644 11-kcde-26
+ create mode 100644 11-kcde-27
+ create mode 100644 11-kcde-28
+ create mode 100644 11-kcde-29
+ create mode 100644 11-kcde-3
+ create mode 100644 11-kcde-30
+ create mode 100644 11-kcde-4
+ create mode 100644 11-kcde-5
+ create mode 100644 11-kcde-6
+ create mode 100644 11-kcde-7
+ create mode 100644 11-kcde-8
+ create mode 100644 11-kcde-9
+ create mode 100644 11-sarima-1
+ create mode 100644 11-sarima-10
+ create mode 100644 11-sarima-11
+ create mode 100644 11-sarima-12
+ create mode 100644 11-sarima-13
+ create mode 100644 11-sarima-14
+ create mode 100644 11-sarima-15
+ create mode 100644 11-sarima-16
+ create mode 100644 11-sarima-17
+ create mode 100644 11-sarima-18
+ create mode 100644 11-sarima-19
+ create mode 100644 11-sarima-2
+ create mode 100644 11-sarima-20
+ create mode 100644 11-sarima-21
+ create mode 100644 11-sarima-22
+ create mode 100644 11-sarima-23
+ create mode 100644 11-sarima-24
+ create mode 100644 11-sarima-25
+ create mode 100644 11-sarima-26
+ create mode 100644 11-sarima-27
+ create mode 100644 11-sarima-28
+ create mode 100644 11-sarima-29
+ create mode 100644 11-sarima-3
+ create mode 100644 11-sarima-30
+ create mode 100644 11-sarima-4
+ create mode 100644 11-sarima-5
+ create mode 100644 11-sarima-6
+ create mode 100644 11-sarima-7
+ create mode 100644 11-sarima-8
+ create mode 100644 11-sarima-9
+ create mode 100644 2-kcde-1
+ create mode 100644 2-kcde-10
+ create mode 100644 2-kcde-11
+ create mode 100644 2-kcde-12
+ create mode 100644 2-kcde-13
+ create mode 100644 2-kcde-14
+ create mode 100644 2-kcde-15
+ create mode 100644 2-kcde-16
+ create mode 100644 2-kcde-17
+ create mode 100644 2-kcde-18
+ create mode 100644 2-kcde-19
+ create mode 100644 2-kcde-2
+ create mode 100644 2-kcde-20
+ create mode 100644 2-kcde-21
+ create mode 100644 2-kcde-22
+ create mode 100644 2-kcde-23
+ create mode 100644 2-kcde-24
+ create mode 100644 2-kcde-25
+ create mode 100644 2-kcde-26
+ create mode 100644 2-kcde-27
+ create mode 100644 2-kcde-28
+ create mode 100644 2-kcde-29
+ create mode 100644 2-kcde-3
+ create mode 100644 2-kcde-30
+ create mode 100644 2-kcde-4
+ create mode 100644 2-kcde-5
+ create mode 100644 2-kcde-6
+ create mode 100644 2-kcde-7
+ create mode 100644 2-kcde-8
+ create mode 100644 2-kcde-9
+ create mode 100644 2-sarima-1
+ create mode 100644 2-sarima-10
+ create mode 100644 2-sarima-11
+ create mode 100644 2-sarima-12
+ create mode 100644 2-sarima-13
+ create mode 100644 2-sarima-14
+ create mode 100644 2-sarima-15
+ create mode 100644 2-sarima-16
+ create mode 100644 2-sarima-17
+ create mode 100644 2-sarima-18
+ create mode 100644 2-sarima-19
+ create mode 100644 2-sarima-2
+ create mode 100644 2-sarima-20
+ create mode 100644 2-sarima-21
+ create mode 100644 2-sarima-22
+ create mode 100644 2-sarima-23
+ create mode 100644 2-sarima-24
+ create mode 100644 2-sarima-25
+ create mode 100644 2-sarima-26
+ create mode 100644 2-sarima-27
+ create mode 100644 2-sarima-28
+ create mode 100644 2-sarima-29
+ create mode 100644 2-sarima-3
+ create mode 100644 2-sarima-30
+ create mode 100644 2-sarima-4
+ create mode 100644 2-sarima-5
+ create mode 100644 2-sarima-6
+ create mode 100644 2-sarima-7
+ create mode 100644 2-sarima-8
+ create mode 100644 2-sarima-9
+ create mode 100644 3-kcde-1
+ create mode 100644 3-kcde-10
+ create mode 100644 3-kcde-11
+ create mode 100644 3-kcde-12
+ create mode 100644 3-kcde-13
+ create mode 100644 3-kcde-14
+ create mode 100644 3-kcde-15
+ create mode 100644 3-kcde-16
+ create mode 100644 3-kcde-17
+ create mode 100644 3-kcde-18
+ create mode 100644 3-kcde-19
+ create mode 100644 3-kcde-2
+ create mode 100644 3-kcde-20
+ create mode 100644 3-kcde-21
+ create mode 100644 3-kcde-22
+ create mode 100644 3-kcde-23
+ create mode 100644 3-kcde-24
+ create mode 100644 3-kcde-25
+ create mode 100644 3-kcde-26
+ create mode 100644 3-kcde-27
+ create mode 100644 3-kcde-28
+ create mode 100644 3-kcde-29
+ create mode 100644 3-kcde-3
+ create mode 100644 3-kcde-30
+ create mode 100644 3-kcde-4
+ create mode 100644 3-kcde-5
+ create mode 100644 3-kcde-6
+ create mode 100644 3-kcde-7
+ create mode 100644 3-kcde-8
+ create mode 100644 3-kcde-9
+ create mode 100644 3-sarima-1
+ create mode 100644 3-sarima-10
+ create mode 100644 3-sarima-11
+ create mode 100644 3-sarima-12
+ create mode 100644 3-sarima-13
+ create mode 100644 3-sarima-14
+ create mode 100644 3-sarima-15
+ create mode 100644 3-sarima-16
+ create mode 100644 3-sarima-17
+ create mode 100644 3-sarima-18
+ create mode 100644 3-sarima-19
+ create mode 100644 3-sarima-2
+ create mode 100644 3-sarima-20
+ create mode 100644 3-sarima-21
+ create mode 100644 3-sarima-22
+ create mode 100644 3-sarima-23
+ create mode 100644 3-sarima-24
+ create mode 100644 3-sarima-25
+ create mode 100644 3-sarima-26
+ create mode 100644 3-sarima-27
+ create mode 100644 3-sarima-28
+ create mode 100644 3-sarima-29
+ create mode 100644 3-sarima-3
+ create mode 100644 3-sarima-30
+ create mode 100644 3-sarima-4
+ create mode 100644 3-sarima-5
+ create mode 100644 3-sarima-6
+ create mode 100644 3-sarima-7
+ create mode 100644 3-sarima-8
+ create mode 100644 3-sarima-9
+ create mode 100644 4-kcde-1
+ create mode 100644 4-kcde-10
+ create mode 100644 4-kcde-11
+ create mode 100644 4-kcde-12
+ create mode 100644 4-kcde-13
+ create mode 100644 4-kcde-14
+ create mode 100644 4-kcde-15
+ create mode 100644 4-kcde-16
+ create mode 100644 4-kcde-17
+ create mode 100644 4-kcde-18
+ create mode 100644 4-kcde-19
+ create mode 100644 4-kcde-2
+ create mode 100644 4-kcde-20
+ create mode 100644 4-kcde-21
+ create mode 100644 4-kcde-22
+ create mode 100644 4-kcde-23
+ create mode 100644 4-kcde-24
+ create mode 100644 4-kcde-25
+ create mode 100644 4-kcde-26
+ create mode 100644 4-kcde-27
+ create mode 100644 4-kcde-28
+ create mode 100644 4-kcde-29
+ create mode 100644 4-kcde-3
+ create mode 100644 4-kcde-30
+ create mode 100644 4-kcde-4
+ create mode 100644 4-kcde-5
+ create mode 100644 4-kcde-6
+ create mode 100644 4-kcde-7
+ create mode 100644 4-kcde-8
+ create mode 100644 4-kcde-9
+ create mode 100644 4-sarima-1
+ create mode 100644 4-sarima-10
+ create mode 100644 4-sarima-11
+ create mode 100644 4-sarima-12
+ create mode 100644 4-sarima-13
+ create mode 100644 4-sarima-14
+ create mode 100644 4-sarima-15
+ create mode 100644 4-sarima-16
+ create mode 100644 4-sarima-17
+ create mode 100644 4-sarima-18
+ create mode 100644 4-sarima-19
+ create mode 100644 4-sarima-2
+ create mode 100644 4-sarima-20
+ create mode 100644 4-sarima-21
+ create mode 100644 4-sarima-22
+ create mode 100644 4-sarima-23
+ create mode 100644 4-sarima-24
+ create mode 100644 4-sarima-25
+ create mode 100644 4-sarima-26
+ create mode 100644 4-sarima-27
+ create mode 100644 4-sarima-28
+ create mode 100644 4-sarima-29
+ create mode 100644 4-sarima-3
+ create mode 100644 4-sarima-30
+ create mode 100644 4-sarima-4
+ create mode 100644 4-sarima-5
+ create mode 100644 4-sarima-6
+ create mode 100644 4-sarima-7
+ create mode 100644 4-sarima-8
+ create mode 100644 4-sarima-9
+ create mode 100644 5-kcde-1
+ create mode 100644 5-kcde-10
+ create mode 100644 5-kcde-11
+ create mode 100644 5-kcde-12
+ create mode 100644 5-kcde-13
+ create mode 100644 5-kcde-14
+ create mode 100644 5-kcde-15
+ create mode 100644 5-kcde-16
+ create mode 100644 5-kcde-17
+ create mode 100644 5-kcde-18
+ create mode 100644 5-kcde-19
+ create mode 100644 5-kcde-2
+ create mode 100644 5-kcde-20
+ create mode 100644 5-kcde-21
+ create mode 100644 5-kcde-22
+ create mode 100644 5-kcde-23
+ create mode 100644 5-kcde-24
+ create mode 100644 5-kcde-25
+ create mode 100644 5-kcde-26
+ create mode 100644 5-kcde-27
+ create mode 100644 5-kcde-28
+ create mode 100644 5-kcde-29
+ create mode 100644 5-kcde-3
+ create mode 100644 5-kcde-30
+ create mode 100644 5-kcde-4
+ create mode 100644 5-kcde-5
+ create mode 100644 5-kcde-6
+ create mode 100644 5-kcde-7
+ create mode 100644 5-kcde-8
+ create mode 100644 5-kcde-9
+ create mode 100644 5-sarima-1
+ create mode 100644 5-sarima-10
+ create mode 100644 5-sarima-11
+ create mode 100644 5-sarima-12
+ create mode 100644 5-sarima-13
+ create mode 100644 5-sarima-14
+ create mode 100644 5-sarima-15
+ create mode 100644 5-sarima-16
+ create mode 100644 5-sarima-17
+ create mode 100644 5-sarima-18
+ create mode 100644 5-sarima-19
+ create mode 100644 5-sarima-2
+ create mode 100644 5-sarima-20
+ create mode 100644 5-sarima-21
+ create mode 100644 5-sarima-22
+ create mode 100644 5-sarima-23
+ create mode 100644 5-sarima-24
+ create mode 100644 5-sarima-25
+ create mode 100644 5-sarima-26
+ create mode 100644 5-sarima-27
+ create mode 100644 5-sarima-28
+ create mode 100644 5-sarima-29
+ create mode 100644 5-sarima-3
+ create mode 100644 5-sarima-30
+ create mode 100644 5-sarima-4
+ create mode 100644 5-sarima-5
+ create mode 100644 5-sarima-6
+ create mode 100644 5-sarima-7
+ create mode 100644 5-sarima-8
+ create mode 100644 5-sarima-9
+ create mode 100644 6-kcde-1
+ create mode 100644 6-kcde-10
+ create mode 100644 6-kcde-11
+ create mode 100644 6-kcde-12
+ create mode 100644 6-kcde-13
+ create mode 100644 6-kcde-14
+ create mode 100644 6-kcde-15
+ create mode 100644 6-kcde-16
+ create mode 100644 6-kcde-17
+ create mode 100644 6-kcde-18
+ create mode 100644 6-kcde-19
+ create mode 100644 6-kcde-2
+ create mode 100644 6-kcde-20
+ create mode 100644 6-kcde-21
+ create mode 100644 6-kcde-22
+ create mode 100644 6-kcde-23
+ create mode 100644 6-kcde-24
+ create mode 100644 6-kcde-25
+ create mode 100644 6-kcde-26
+ create mode 100644 6-kcde-27
+ create mode 100644 6-kcde-28
+ create mode 100644 6-kcde-29
+ create mode 100644 6-kcde-3
+ create mode 100644 6-kcde-30
+ create mode 100644 6-kcde-4
+ create mode 100644 6-kcde-5
+ create mode 100644 6-kcde-6
+ create mode 100644 6-kcde-7
+ create mode 100644 6-kcde-8
+ create mode 100644 6-kcde-9
+ create mode 100644 6-sarima-1
+ create mode 100644 6-sarima-10
+ create mode 100644 6-sarima-11
+ create mode 100644 6-sarima-12
+ create mode 100644 6-sarima-13
+ create mode 100644 6-sarima-14
+ create mode 100644 6-sarima-15
+ create mode 100644 6-sarima-16
+ create mode 100644 6-sarima-17
+ create mode 100644 6-sarima-18
+ create mode 100644 6-sarima-19
+ create mode 100644 6-sarima-2
+ create mode 100644 6-sarima-20
+ create mode 100644 6-sarima-21
+ create mode 100644 6-sarima-22
+ create mode 100644 6-sarima-23
+ create mode 100644 6-sarima-24
+ create mode 100644 6-sarima-25
+ create mode 100644 6-sarima-26
+ create mode 100644 6-sarima-27
+ create mode 100644 6-sarima-28
+ create mode 100644 6-sarima-29
+ create mode 100644 6-sarima-3
+ create mode 100644 6-sarima-30
+ create mode 100644 6-sarima-4
+ create mode 100644 6-sarima-5
+ create mode 100644 6-sarima-6
+ create mode 100644 6-sarima-7
+ create mode 100644 6-sarima-8
+ create mode 100644 6-sarima-9
+ create mode 100644 7-kcde-1
+ create mode 100644 7-kcde-10
+ create mode 100644 7-kcde-11
+ create mode 100644 7-kcde-12
+ create mode 100644 7-kcde-13
+ create mode 100644 7-kcde-14
+ create mode 100644 7-kcde-15
+ create mode 100644 7-kcde-16
+ create mode 100644 7-kcde-17
+ create mode 100644 7-kcde-18
+ create mode 100644 7-kcde-19
+ create mode 100644 7-kcde-2
+ create mode 100644 7-kcde-20
+ create mode 100644 7-kcde-21
+ create mode 100644 7-kcde-22
+ create mode 100644 7-kcde-23
+ create mode 100644 7-kcde-24
+ create mode 100644 7-kcde-25
+ create mode 100644 7-kcde-26
+ create mode 100644 7-kcde-27
+ create mode 100644 7-kcde-28
+ create mode 100644 7-kcde-29
+ create mode 100644 7-kcde-3
+ create mode 100644 7-kcde-30
+ create mode 100644 7-kcde-4
+ create mode 100644 7-kcde-5
+ create mode 100644 7-kcde-6
+ create mode 100644 7-kcde-7
+ create mode 100644 7-kcde-8
+ create mode 100644 7-kcde-9
+ create mode 100644 7-sarima-1
+ create mode 100644 7-sarima-10
+ create mode 100644 7-sarima-11
+ create mode 100644 7-sarima-12
+ create mode 100644 7-sarima-13
+ create mode 100644 7-sarima-14
+ create mode 100644 7-sarima-15
+ create mode 100644 7-sarima-16
+ create mode 100644 7-sarima-17
+ create mode 100644 7-sarima-18
+ create mode 100644 7-sarima-19
+ create mode 100644 7-sarima-2
+ create mode 100644 7-sarima-20
+ create mode 100644 7-sarima-21
+ create mode 100644 7-sarima-22
+ create mode 100644 7-sarima-23
+ create mode 100644 7-sarima-24
+ create mode 100644 7-sarima-25
+ create mode 100644 7-sarima-26
+ create mode 100644 7-sarima-27
+ create mode 100644 7-sarima-28
+ create mode 100644 7-sarima-29
+ create mode 100644 7-sarima-3
+ create mode 100644 7-sarima-30
+ create mode 100644 7-sarima-4
+ create mode 100644 7-sarima-5
+ create mode 100644 7-sarima-6
+ create mode 100644 7-sarima-7
+ create mode 100644 7-sarima-8
+ create mode 100644 7-sarima-9
+ create mode 100644 8-kcde-1
+ create mode 100644 8-kcde-10
+ create mode 100644 8-kcde-11
+ create mode 100644 8-kcde-12
+ create mode 100644 8-kcde-13
+ create mode 100644 8-kcde-14
+ create mode 100644 8-kcde-15
+ create mode 100644 8-kcde-16
+ create mode 100644 8-kcde-17
+ create mode 100644 8-kcde-18
+ create mode 100644 8-kcde-19
+ create mode 100644 8-kcde-2
+ create mode 100644 8-kcde-20
+ create mode 100644 8-kcde-21
+ create mode 100644 8-kcde-22
+ create mode 100644 8-kcde-23
+ create mode 100644 8-kcde-24
+ create mode 100644 8-kcde-25
+ create mode 100644 8-kcde-26
+ create mode 100644 8-kcde-27
+ create mode 100644 8-kcde-28
+ create mode 100644 8-kcde-29
+ create mode 100644 8-kcde-3
+ create mode 100644 8-kcde-30
+ create mode 100644 8-kcde-4
+ create mode 100644 8-kcde-5
+ create mode 100644 8-kcde-6
+ create mode 100644 8-kcde-7
+ create mode 100644 8-kcde-8
+ create mode 100644 8-kcde-9
+ create mode 100644 8-sarima-1
+ create mode 100644 8-sarima-10
+ create mode 100644 8-sarima-11
+ create mode 100644 8-sarima-12
+ create mode 100644 8-sarima-13
+ create mode 100644 8-sarima-14
+ create mode 100644 8-sarima-15
+ create mode 100644 8-sarima-16
+ create mode 100644 8-sarima-17
+ create mode 100644 8-sarima-18
+ create mode 100644 8-sarima-19
+ create mode 100644 8-sarima-2
+ create mode 100644 8-sarima-20
+ create mode 100644 8-sarima-21
+ create mode 100644 8-sarima-22
+ create mode 100644 8-sarima-23
+ create mode 100644 8-sarima-24
+ create mode 100644 8-sarima-25
+ create mode 100644 8-sarima-26
+ create mode 100644 8-sarima-27
+ create mode 100644 8-sarima-28
+ create mode 100644 8-sarima-29
+ create mode 100644 8-sarima-3
+ create mode 100644 8-sarima-30
+ create mode 100644 8-sarima-4
+ create mode 100644 8-sarima-5
+ create mode 100644 8-sarima-6
+ create mode 100644 8-sarima-7
+ create mode 100644 8-sarima-8
+ create mode 100644 8-sarima-9
+ create mode 100644 9-kcde-1
+ create mode 100644 9-kcde-10
+ create mode 100644 9-kcde-11
+ create mode 100644 9-kcde-12
+ create mode 100644 9-kcde-13
+ create mode 100644 9-kcde-14
+ create mode 100644 9-kcde-15
+ create mode 100644 9-kcde-16
+ create mode 100644 9-kcde-17
+ create mode 100644 9-kcde-18
+ create mode 100644 9-kcde-19
+ create mode 100644 9-kcde-2
+ create mode 100644 9-kcde-20
+ create mode 100644 9-kcde-21
+ create mode 100644 9-kcde-22
+ create mode 100644 9-kcde-23
+ create mode 100644 9-kcde-24
+ create mode 100644 9-kcde-25
+ create mode 100644 9-kcde-26
+ create mode 100644 9-kcde-27
+ create mode 100644 9-kcde-28
+ create mode 100644 9-kcde-29
+ create mode 100644 9-kcde-3
+ create mode 100644 9-kcde-30
+ create mode 100644 9-kcde-4
+ create mode 100644 9-kcde-5
+ create mode 100644 9-kcde-6
+ create mode 100644 9-kcde-7
+ create mode 100644 9-kcde-8
+ create mode 100644 9-kcde-9
+ create mode 100644 9-sarima-1
+ create mode 100644 9-sarima-10
+ create mode 100644 9-sarima-11
+ create mode 100644 9-sarima-12
+ create mode 100644 9-sarima-13
+ create mode 100644 9-sarima-14
+ create mode 100644 9-sarima-15
+ create mode 100644 9-sarima-16
+ create mode 100644 9-sarima-17
+ create mode 100644 9-sarima-18
+ create mode 100644 9-sarima-19
+ create mode 100644 9-sarima-2
+ create mode 100644 9-sarima-20
+ create mode 100644 9-sarima-21
+ create mode 100644 9-sarima-22
+ create mode 100644 9-sarima-23
+ create mode 100644 9-sarima-24
+ create mode 100644 9-sarima-25
+ create mode 100644 9-sarima-26
+ create mode 100644 9-sarima-27
+ create mode 100644 9-sarima-28
+ create mode 100644 9-sarima-29
+ create mode 100644 9-sarima-3
+ create mode 100644 9-sarima-30
+ create mode 100644 9-sarima-4
+ create mode 100644 9-sarima-5
+ create mode 100644 9-sarima-6
+ create mode 100644 9-sarima-7
+ create mode 100644 9-sarima-8
+ create mode 100644 9-sarima-9
+ rewrite cdc.Rmd (91%)
+ create mode 100644 data-1
+ create mode 100644 data-10
+ create mode 100644 data-11
+ create mode 100644 data-12
+ create mode 100644 data-13
+ create mode 100644 data-14
+ create mode 100644 data-15
+ create mode 100644 data-16
+ create mode 100644 data-17
+ create mode 100644 data-18
+ create mode 100644 data-19
+ create mode 100644 data-2
+ create mode 100644 data-20
+ create mode 100644 data-21
+ create mode 100644 data-22
+ create mode 100644 data-23
+ create mode 100644 data-24
+ create mode 100644 data-25
+ create mode 100644 data-26
+ create mode 100644 data-27
+ create mode 100644 data-28
+ create mode 100644 data-29
+ create mode 100644 data-3
+ create mode 100644 data-30
+ create mode 100644 data-4
+ create mode 100644 data-5
+ create mode 100644 data-6
+ create mode 100644 data-7
+ create mode 100644 data-8
+ create mode 100644 data-9
+ create mode 100644 data.RDS
+ create mode 100644 flu_data_with_backfill.rds
+ create mode 100644 initializer.py
+ create mode 100644 kcde-1
+ create mode 100644 kcde-10
+ create mode 100644 kcde-11
+ create mode 100644 kcde-12
+ create mode 100644 kcde-13
+ create mode 100644 kcde-14
+ create mode 100644 kcde-15
+ create mode 100644 kcde-16
+ create mode 100644 kcde-17
+ create mode 100644 kcde-18
+ create mode 100644 kcde-19
+ create mode 100644 kcde-2
+ create mode 100644 kcde-20
+ create mode 100644 kcde-21
+ create mode 100644 kcde-22
+ create mode 100644 kcde-23
+ create mode 100644 kcde-24
+ create mode 100644 kcde-25
+ create mode 100644 kcde-26
+ create mode 100644 kcde-27
+ create mode 100644 kcde-28
+ create mode 100644 kcde-29
+ create mode 100644 kcde-3
+ create mode 100644 kcde-30
+ create mode 100644 kcde-31
+ create mode 100644 kcde-32
+ create mode 100644 kcde-33
+ create mode 100644 kcde-34
+ create mode 100644 kcde-35
+ create mode 100644 kcde-36
+ create mode 100644 kcde-37
+ create mode 100644 kcde-38
+ create mode 100644 kcde-39
+ create mode 100644 kcde-4
+ create mode 100644 kcde-40
+ create mode 100644 kcde-41
+ create mode 100644 kcde-5
+ create mode 100644 kcde-6
+ create mode 100644 kcde-7
+ create mode 100644 kcde-8
+ create mode 100644 kcde-9
+ create mode 100644 kcde_score_df
+ create mode 100644 kmeans_initializer.py
+ create mode 100644 nn_plot
+ create mode 100644 nn_plot-1
+ create mode 100644 nn_plot-10
+ create mode 100644 nn_plot-11
+ create mode 100644 nn_plot-12
+ create mode 100644 nn_plot-13
+ create mode 100644 nn_plot-14
+ create mode 100644 nn_plot-15
+ create mode 100644 nn_plot-16
+ create mode 100644 nn_plot-17
+ create mode 100644 nn_plot-18
+ create mode 100644 nn_plot-19
+ create mode 100644 nn_plot-2
+ create mode 100644 nn_plot-20
+ create mode 100644 nn_plot-21
+ create mode 100644 nn_plot-22
+ create mode 100644 nn_plot-23
+ create mode 100644 nn_plot-24
+ create mode 100644 nn_plot-25
+ create mode 100644 nn_plot-26
+ create mode 100644 nn_plot-27
+ create mode 100644 nn_plot-28
+ create mode 100644 nn_plot-29
+ create mode 100644 nn_plot-3
+ create mode 100644 nn_plot-30
+ create mode 100644 nn_plot-31
+ create mode 100644 nn_plot-32
+ create mode 100644 nn_plot-33
+ create mode 100644 nn_plot-34
+ create mode 100644 nn_plot-4
+ create mode 100644 nn_plot-5
+ create mode 100644 nn_plot-6
+ create mode 100644 nn_plot-7
+ create mode 100644 nn_plot-8
+ create mode 100644 nn_plot-9
+ create mode 100644 rbflayer.py
+ create mode 100644 rbflayer.pyc
+ create mode 100644 regional_results
+ create mode 100644 sarima-1
+ create mode 100644 sarima-10
+ create mode 100644 sarima-11
+ create mode 100644 sarima-12
+ create mode 100644 sarima-13
+ create mode 100644 sarima-14
+ create mode 100644 sarima-15
+ create mode 100644 sarima-16
+ create mode 100644 sarima-17
+ create mode 100644 sarima-18
+ create mode 100644 sarima-19
+ create mode 100644 sarima-2
+ create mode 100644 sarima-20
+ create mode 100644 sarima-21
+ create mode 100644 sarima-22
+ create mode 100644 sarima-23
+ create mode 100644 sarima-24
+ create mode 100644 sarima-25
+ create mode 100644 sarima-26
+ create mode 100644 sarima-27
+ create mode 100644 sarima-28
+ create mode 100644 sarima-29
+ create mode 100644 sarima-3
+ create mode 100644 sarima-30
+ create mode 100644 sarima-31
+ create mode 100644 sarima-32
+ create mode 100644 sarima-33
+ create mode 100644 sarima-34
+ create mode 100644 sarima-35
+ create mode 100644 sarima-36
+ create mode 100644 sarima-37
+ create mode 100644 sarima-38
+ create mode 100644 sarima-39
+ create mode 100644 sarima-4
+ create mode 100644 sarima-40
+ create mode 100644 sarima-41
+ create mode 100644 sarima-5
+ create mode 100644 sarima-6
+ create mode 100644 sarima-7
+ create mode 100644 sarima-8
+ create mode 100644 sarima-9
+ create mode 100644 sarima_score_df
+ create mode 100644 test.py
+]0;~/kcde-new(base) gcgibsons-MacBook-Pro:kcde-new gcgibson$ git push oriign [K[K[K[Kgin master
+Enumerating objects: 874, done.
+Counting objects:   0% (1/874)   Counting objects:   1% (9/874)   Counting objects:   2% (18/874)   Counting objects:   3% (27/874)   Counting objects:   4% (35/874)   Counting objects:   5% (44/874)   Counting objects:   6% (53/874)   Counting objects:   7% (62/874)   Counting objects:   8% (70/874)   Counting objects:   9% (79/874)   Counting objects:  10% (88/874)   Counting objects:  11% (97/874)   Counting objects:  12% (105/874)   Counting objects:  13% (114/874)   Counting objects:  14% (123/874)   Counting objects:  15% (132/874)   Counting objects:  16% (140/874)   Counting objects:  17% (149/874)   Counting objects:  18% (158/874)   Counting objects:  19% (167/874)   Counting objects:  20% (175/874)   Counting objects:  21% (184/874)   Counting objects:  22% (193/874)   Counting objects:  23% (202/874)   Counting objects:  24% (210/874)   Counting objects:  25% (219/874)   Counting objects:  26% (228/874)   Counting objects:  27% (236/874)   Counting objects:  28% (245/874)   Counting objects:  29% (254/874)   Counting objects:  30% (263/874)   Counting objects:  31% (271/874)   Counting objects:  32% (280/874)   Counting objects:  33% (289/874)   Counting objects:  34% (298/874)   Counting objects:  35% (306/874)   Counting objects:  36% (315/874)   Counting objects:  37% (324/874)   Counting objects:  38% (333/874)   Counting objects:  39% (341/874)   Counting objects:  40% (350/874)   Counting objects:  41% (359/874)   Counting objects:  42% (368/874)   Counting objects:  43% (376/874)   Counting objects:  44% (385/874)   Counting objects:  45% (394/874)   Counting objects:  46% (403/874)   Counting objects:  47% (411/874)   Counting objects:  48% (420/874)   Counting objects:  49% (429/874)   Counting objects:  50% (437/874)   Counting objects:  51% (446/874)   Counting objects:  52% (455/874)   Counting objects:  53% (464/874)   Counting objects:  54% (472/874)   Counting objects:  55% (481/874)   Counting objects:  56% (490/874)   Counting objects:  57% (499/874)   Counting objects:  58% (507/874)   Counting objects:  59% (516/874)   Counting objects:  60% (525/874)   Counting objects:  61% (534/874)   Counting objects:  62% (542/874)   Counting objects:  63% (551/874)   Counting objects:  64% (560/874)   Counting objects:  65% (569/874)   Counting objects:  66% (577/874)   Counting objects:  67% (586/874)   Counting objects:  68% (595/874)   Counting objects:  69% (604/874)   Counting objects:  70% (612/874)   Counting objects:  71% (621/874)   Counting objects:  72% (630/874)   Counting objects:  73% (639/874)   Counting objects:  74% (647/874)   Counting objects:  75% (656/874)   Counting objects:  76% (665/874)   Counting objects:  77% (673/874)   Counting objects:  78% (682/874)   Counting objects:  79% (691/874)   Counting objects:  80% (700/874)   Counting objects:  81% (708/874)   Counting objects:  82% (717/874)   Counting objects:  83% (726/874)   Counting objects:  84% (735/874)   Counting objects:  85% (743/874)   Counting objects:  86% (752/874)   Counting objects:  87% (761/874)   Counting objects:  88% (770/874)   Counting objects:  89% (778/874)   Counting objects:  90% (787/874)   Counting objects:  91% (796/874)   Counting objects:  92% (805/874)   Counting objects:  93% (813/874)   Counting objects:  94% (822/874)   Counting objects:  95% (831/874)   Counting objects:  96% (840/874)   Counting objects:  97% (848/874)   Counting objects:  98% (857/874)   Counting objects:  99% (866/874)   Counting objects: 100% (874/874)   Counting objects: 100% (874/874), done.
+Delta compression using up to 4 threads
+Compressing objects:   0% (1/843)   Compressing objects:   1% (9/843)   Compressing objects:   2% (17/843)   Compressing objects:   3% (26/843)   Compressing objects:   4% (34/843)   Compressing objects:   5% (43/843)   Compressing objects:   6% (51/843)   Compressing objects:   7% (60/843)   Compressing objects:   8% (68/843)   Compressing objects:   9% (76/843)   Compressing objects:  10% (85/843)   Compressing objects:  11% (93/843)   Compressing objects:  12% (102/843)   Compressing objects:  12% (104/843)   Compressing objects:  13% (110/843)   Compressing objects:  14% (119/843)   Compressing objects:  15% (127/843)   Compressing objects:  16% (135/843)   Compressing objects:  17% (144/843)   Compressing objects:  18% (152/843)   Compressing objects:  19% (161/843)   Compressing objects:  20% (169/843)   Compressing objects:  21% (178/843)   Compressing objects:  22% (186/843)   Compressing objects:  23% (194/843)   Compressing objects:  24% (203/843)   Compressing objects:  24% (204/843)   Compressing objects:  25% (211/843)   Compressing objects:  26% (220/843)   Compressing objects:  27% (228/843)   Compressing objects:  28% (237/843)   Compressing objects:  29% (245/843)   Compressing objects:  30% (253/843)   Compressing objects:  30% (256/843)   Compressing objects:  31% (262/843)   Compressing objects:  32% (270/843)   Compressing objects:  33% (279/843)   Compressing objects:  34% (287/843)   Compressing objects:  35% (296/843)   Compressing objects:  36% (304/843)   Compressing objects:  37% (312/843)   Compressing objects:  38% (321/843)   Compressing objects:  39% (329/843)   Compressing objects:  40% (338/843)   Compressing objects:  41% (346/843)   Compressing objects:  41% (351/843)   Compressing objects:  42% (355/843)   Compressing objects:  43% (363/843)   Compressing objects:  44% (371/843)   Compressing objects:  45% (380/843)   Compressing objects:  46% (388/843)   Compressing objects:  46% (391/843)   Compressing objects:  47% (397/843)   Compressing objects:  48% (405/843)   Compressing objects:  49% (414/843)   Compressing objects:  50% (422/843)   Compressing objects:  50% (425/843)   Compressing objects:  51% (430/843)   Compressing objects:  52% (439/843)   Compressing objects:  53% (447/843)   Compressing objects:  54% (456/843)   Compressing objects:  54% (458/843)   Compressing objects:  55% (464/843)   Compressing objects:  56% (473/843)   Compressing objects:  57% (481/843)   Compressing objects:  58% (489/843)   Compressing objects:  59% (498/843)   Compressing objects:  60% (506/843)   Compressing objects:  61% (515/843)   Compressing objects:  62% (523/843)   Compressing objects:  63% (532/843)   Compressing objects:  64% (540/843)   Compressing objects:  65% (548/843)   Compressing objects:  66% (557/843)   Compressing objects:  67% (565/843)   Compressing objects:  68% (574/843)   Compressing objects:  69% (582/843)   Compressing objects:  70% (591/843)   Compressing objects:  71% (599/843)   Compressing objects:  72% (607/843)   Compressing objects:  73% (616/843)   Compressing objects:  73% (620/843)   Compressing objects:  74% (624/843)   Compressing objects:  75% (633/843)   Compressing objects:  76% (641/843)   Compressing objects:  77% (650/843)   Compressing objects:  78% (658/843)   Compressing objects:  78% (661/843)   Compressing objects:  79% (666/843)   Compressing objects:  80% (675/843)   Compressing objects:  81% (683/843)   Compressing objects:  82% (692/843)   Compressing objects:  83% (700/843)   Compressing objects:  84% (709/843)   Compressing objects:  85% (717/843)   Compressing objects:  86% (725/843)   Compressing objects:  87% (734/843)   Compressing objects:  88% (742/843)   Compressing objects:  89% (751/843)   Compressing objects:  89% (758/843)   Compressing objects:  90% (759/843)   Compressing objects:  91% (768/843)   Compressing objects:  92% (776/843)   Compressing objects:  93% (784/843)   Compressing objects:  94% (793/843)   Compressing objects:  95% (801/843)   Compressing objects:  95% (809/843)   Compressing objects:  96% (810/843)   Compressing objects:  97% (818/843)   Compressing objects:  98% (827/843)   Compressing objects:  99% (835/843)   Compressing objects: 100% (843/843)   Compressing objects: 100% (843/843), done.
+Writing objects:   0% (1/846)   Writing objects:   1% (9/846)   Writing objects:   2% (17/846)   Writing objects:   3% (26/846)   Writing objects:   4% (35/846)   Writing objects:   5% (44/846)   Writing objects:   6% (53/846)   Writing objects:   6% (56/846), 1.07 MiB | 282.00 KiB/s   Writing objects:   6% (59/846), 1.07 MiB | 282.00 KiB/s   Writing objects:   7% (62/846), 1.19 MiB | 246.00 KiB/s   Writing objects:   7% (63/846), 1.19 MiB | 246.00 KiB/s   Writing objects:   8% (70/846), 1.31 MiB | 246.00 KiB/s   Writing objects:   8% (75/846), 1.50 MiB | 256.00 KiB/s   Writing objects:   9% (78/846), 1.50 MiB | 256.00 KiB/s   Writing objects:  10% (85/846), 1.69 MiB | 264.00 KiB/s   Writing objects:  10% (85/846), 1.88 MiB | 270.00 KiB/s   Writing objects:  10% (91/846), 2.06 MiB | 263.00 KiB/s   Writing objects:  10% (93/846), 2.12 MiB | 241.00 KiB/s   Writing objects:  10% (93/846), 2.13 MiB | 84.00 KiB/s   Writing objects:  11% (95/846), 2.13 MiB | 84.00 KiB/s   Writing objects:  11% (98/846), 2.13 MiB | 84.00 KiB/s   Writing objects:  11% (101/846), 2.31 MiB | 51.00 KiB/s   Writing objects:  12% (102/846), 2.31 MiB | 51.00 KiB/s   Writing objects:  12% (106/846), 2.44 MiB | 42.00 KiB/s   Writing objects:  12% (108/846), 2.50 MiB | 36.00 KiB/s   Writing objects:  13% (110/846), 2.50 MiB | 36.00 KiB/s   Writing objects:  13% (113/846), 2.63 MiB | 25.00 KiB/s   Writing objects:  13% (115/846), 2.69 MiB | 26.00 KiB/s   Writing objects:  14% (120/846), 2.75 MiB | 106.00 KiB/s   Writing objects:  14% (120/846), 2.88 MiB | 104.00 KiB/s   Writing objects:  14% (124/846), 2.94 MiB | 105.00 KiB/s   Writing objects:  15% (127/846), 2.94 MiB | 105.00 KiB/s   Writing objects:  15% (129/846), 3.06 MiB | 116.00 KiB/s   Writing objects:  15% (135/846), 3.13 MiB | 115.00 KiB/s   Writing objects:  16% (136/846), 3.13 MiB | 115.00 KiB/s   Writing objects:  16% (140/846), 3.38 MiB | 128.00 KiB/s   Writing objects:  17% (144/846), 3.38 MiB | 128.00 KiB/s   Writing objects:  17% (145/846), 3.50 MiB | 136.00 KiB/s   Writing objects:  18% (153/846), 3.63 MiB | 144.00 KiB/s   Writing objects:  18% (155/846), 3.75 MiB | 155.00 KiB/s   Writing objects:  19% (162/846), 3.88 MiB | 167.00 KiB/s   Writing objects:  19% (164/846), 3.88 MiB | 167.00 KiB/s   Writing objects:  19% (169/846), 4.13 MiB | 175.00 KiB/s   Writing objects:  20% (170/846), 4.13 MiB | 175.00 KiB/s   Writing objects:  21% (178/846), 4.25 MiB | 185.00 KiB/s   Writing objects:  21% (183/846), 4.50 MiB | 195.00 KiB/s   Writing objects:  22% (187/846), 4.50 MiB | 195.00 KiB/s   Writing objects:  22% (191/846), 4.63 MiB | 199.00 KiB/s   Writing objects:  23% (195/846), 4.75 MiB | 199.00 KiB/s   Writing objects:  23% (197/846), 4.87 MiB | 201.00 KiB/s   Writing objects:  24% (204/846), 5.00 MiB | 197.00 KiB/s   Writing objects:  24% (205/846), 5.12 MiB | 178.00 KiB/s   Writing objects:  24% (205/846), 5.13 MiB | 84.00 KiB/s   Writing objects:  25% (213/846), 5.13 MiB | 84.00 KiB/s   Writing objects:  26% (220/846), 5.13 MiB | 84.00 KiB/s   Writing objects:  26% (224/846), 5.67 MiB | 120.00 KiB/s   Writing objects:  27% (229/846), 5.73 MiB | 112.00 KiB/s   Writing objects:  27% (229/846), 5.80 MiB | 107.00 KiB/s   Writing objects:  27% (232/846), 5.86 MiB | 101.00 KiB/s   Writing objects:  27% (235/846), 5.92 MiB | 95.00 KiB/s   Writing objects:  27% (235/846), 5.92 MiB | 59.00 KiB/s   Writing objects:  28% (237/846), 5.92 MiB | 59.00 KiB/s   Writing objects:  29% (247/846), 5.92 MiB | 59.00 KiB/s   Writing objects:  29% (252/846), 6.42 MiB | 76.00 KiB/s   Writing objects:  30% (254/846), 6.42 MiB | 76.00 KiB/s   Writing objects:  30% (254/846), 6.48 MiB | 119.00 KiB/s   Writing objects:  30% (260/846), 6.55 MiB | 75.00 KiB/s   Writing objects:  31% (263/846), 6.67 MiB | 80.00 KiB/s   Writing objects:  31% (263/846), 6.73 MiB | 55.00 KiB/s   Writing objects:  32% (271/846), 6.73 MiB | 55.00 KiB/s   Writing objects:  32% (274/846), 6.73 MiB | 55.00 KiB/s   Writing objects:  33% (281/846), 7.04 MiB | 70.00 KiB/s   Writing objects:  33% (281/846), 7.16 MiB | 74.00 KiB/s   Writing objects:  33% (286/846), 7.29 MiB | 87.00 KiB/s   Writing objects:  34% (289/846), 7.35 MiB | 84.00 KiB/s   Writing objects:  34% (290/846), 7.41 MiB | 84.00 KiB/s   Writing objects:  34% (293/846), 7.48 MiB | 85.00 KiB/s   Writing objects:  34% (293/846), 7.48 MiB | 57.00 KiB/s   Writing objects:  35% (297/846), 7.48 MiB | 57.00 KiB/s   Writing objects:  36% (305/846), 7.48 MiB | 57.00 KiB/s   Writing objects:  36% (305/846), 7.82 MiB | 120.00 KiB/s   Writing objects:  36% (310/846), 7.95 MiB | 86.00 KiB/s   Writing objects:  37% (314/846), 7.95 MiB | 86.00 KiB/s   Writing objects:  37% (314/846), 8.07 MiB | 93.00 KiB/s   Writing objects:  37% (318/846), 8.20 MiB | 89.00 KiB/s   Writing objects:  38% (322/846), 8.20 MiB | 89.00 KiB/s   Writing objects:  38% (323/846), 8.32 MiB | 95.00 KiB/s   Writing objects:  38% (327/846), 8.45 MiB | 152.00 KiB/s   Writing objects:  38% (329/846), 8.51 MiB | 113.00 KiB/s   Writing objects:  39% (330/846), 8.51 MiB | 113.00 KiB/s   Writing objects:  39% (333/846), 8.63 MiB | 115.00 KiB/s   Writing objects:  39% (337/846), 8.76 MiB | 117.00 KiB/s   Writing objects:  40% (339/846), 8.76 MiB | 110.00 KiB/s   Writing objects:  40% (341/846), 8.82 MiB | 112.00 KiB/s   Writing objects:  40% (346/846), 9.01 MiB | 115.00 KiB/s   Writing objects:  41% (348/846), 9.01 MiB | 115.00 KiB/s   Writing objects:  41% (352/846), 9.13 MiB | 120.00 KiB/s   Writing objects:  42% (357/846), 9.13 MiB | 120.00 KiB/s   Writing objects:  42% (357/846), 9.26 MiB | 133.00 KiB/s   Writing objects:  42% (357/846), 9.26 MiB | 66.00 KiB/s   Writing objects:  43% (364/846), 9.26 MiB | 66.00 KiB/s   Writing objects:  43% (366/846), 9.51 MiB | 84.00 KiB/s   Writing objects:  44% (375/846), 9.70 MiB | 89.00 KiB/s   Writing objects:  44% (375/846), 9.76 MiB | 93.00 KiB/s   Writing objects:  44% (380/846), 9.88 MiB | 99.00 KiB/s   Writing objects:  45% (381/846), 9.88 MiB | 99.00 KiB/s   Writing objects:  45% (385/846), 10.01 MiB | 93.00 KiB/s   Writing objects:  45% (389/846), 10.13 MiB | 96.00 KiB/s   Writing objects:  46% (391/846), 10.13 MiB | 96.00 KiB/s   Writing objects:  46% (392/846), 10.20 MiB | 87.00 KiB/s   Writing objects:  46% (397/846), 10.32 MiB | 135.00 KiB/s   Writing objects:  47% (398/846), 10.32 MiB | 135.00 KiB/s   Writing objects:  47% (402/846), 10.45 MiB | 119.00 KiB/s   Writing objects:  47% (406/846), 10.57 MiB | 113.00 KiB/s   Writing objects:  48% (407/846), 10.57 MiB | 113.00 KiB/s   Writing objects:  48% (409/846), 10.63 MiB | 115.00 KiB/s   Writing objects:  48% (409/846), 10.63 MiB | 51.00 KiB/s   Writing objects:  49% (415/846), 10.63 MiB | 51.00 KiB/s   Writing objects:  50% (423/846), 10.88 MiB | 73.00 KiB/s   Writing objects:  50% (423/846), 11.03 MiB | 83.00 KiB/s   Writing objects:  50% (430/846), 11.20 MiB | 84.00 KiB/s   Writing objects:  51% (432/846), 11.20 MiB | 84.00 KiB/s   Writing objects:  51% (433/846), 11.20 MiB | 84.00 KiB/s   Writing objects:  51% (439/846), 11.45 MiB | 89.00 KiB/s   Writing objects:  52% (441/846), 11.45 MiB | 89.00 KiB/s   Writing objects:  52% (444/846), 11.57 MiB | 92.00 KiB/s   Writing objects:  52% (446/846), 11.63 MiB | 91.00 KiB/s   Writing objects:  53% (449/846), 11.63 MiB | 91.00 KiB/s   Writing objects:  53% (451/846), 11.76 MiB | 165.00 KiB/s   Writing objects:  53% (456/846), 11.88 MiB | 119.00 KiB/s   Writing objects:  54% (458/846), 11.88 MiB | 119.00 KiB/s   Writing objects:  54% (461/846), 11.95 MiB | 118.00 KiB/s   Writing objects:  54% (463/846), 12.07 MiB | 116.00 KiB/s   Writing objects:  55% (466/846), 12.13 MiB | 115.00 KiB/s   Writing objects:  55% (468/846), 12.20 MiB | 56.00 KiB/s   Writing objects:  56% (474/846), 12.20 MiB | 56.00 KiB/s   Writing objects:  57% (483/846), 12.45 MiB | 73.00 KiB/s   Writing objects:  57% (483/846), 12.63 MiB | 81.00 KiB/s   Writing objects:  57% (490/846), 12.82 MiB | 88.00 KiB/s   Writing objects:  58% (491/846), 12.82 MiB | 88.00 KiB/s   Writing objects:  58% (496/846), 12.88 MiB | 88.00 KiB/s   Writing objects:  59% (500/846), 13.01 MiB | 90.00 KiB/s   Writing objects:  59% (504/846), 13.13 MiB | 92.00 KiB/s   Writing objects:  60% (508/846), 13.26 MiB | 94.00 KiB/s   Writing objects:  60% (508/846), 13.32 MiB | 173.00 KiB/s   Writing objects:  60% (510/846), 13.38 MiB | 147.00 KiB/s   Writing objects:  61% (517/846), 13.45 MiB | 125.00 KiB/s   Writing objects:  61% (517/846), 13.57 MiB | 120.00 KiB/s   Writing objects:  61% (519/846), 13.63 MiB | 119.00 KiB/s   Writing objects:  61% (524/846), 13.76 MiB | 116.00 KiB/s   Writing objects:  62% (525/846), 13.76 MiB | 116.00 KiB/s   Writing objects:  62% (530/846), 13.88 MiB | 112.00 KiB/s   Writing objects:  63% (533/846), 13.88 MiB | 112.00 KiB/s   Writing objects:  63% (534/846), 14.01 MiB | 116.00 KiB/s   Writing objects:  63% (539/846), 14.13 MiB | 120.00 KiB/s   Writing objects:  64% (542/846), 14.13 MiB | 120.00 KiB/s   Writing objects:  64% (543/846), 14.26 MiB | 131.00 KiB/s   Writing objects:  64% (543/846), 14.26 MiB | 60.00 KiB/s   Writing objects:  65% (550/846), 14.26 MiB | 60.00 KiB/s   Writing objects:  65% (557/846), 14.54 MiB | 80.00 KiB/s   Writing objects:  66% (559/846), 14.54 MiB | 80.00 KiB/s   Writing objects:  66% (566/846), 14.85 MiB | 97.00 KiB/s   Writing objects:  67% (567/846), 14.85 MiB | 97.00 KiB/s   Writing objects:  67% (571/846), 14.98 MiB | 94.00 KiB/s   Writing objects:  68% (576/846), 14.98 MiB | 94.00 KiB/s   Writing objects:  68% (576/846), 15.10 MiB | 97.00 KiB/s   Writing objects:  68% (578/846), 15.16 MiB | 91.00 KiB/s   Writing objects:  68% (578/846), 15.16 MiB | 57.00 KiB/s   Writing objects:  69% (584/846), 15.16 MiB | 57.00 KiB/s   Writing objects:  70% (593/846), 15.41 MiB | 113.00 KiB/s   Writing objects:  70% (599/846), 15.73 MiB | 84.00 KiB/s   Writing objects:  71% (601/846), 15.73 MiB | 84.00 KiB/s   Writing objects:  71% (601/846), 15.79 MiB | 84.00 KiB/s   Writing objects:  71% (605/846), 15.91 MiB | 90.00 KiB/s   Writing objects:  72% (610/846), 15.98 MiB | 82.00 KiB/s   Writing objects:  72% (610/846), 16.04 MiB | 85.00 KiB/s   Writing objects:  72% (612/846), 16.10 MiB | 160.00 KiB/s   Writing objects:  72% (612/846), 16.10 MiB | 64.00 KiB/s   Writing objects:  73% (618/846), 16.10 MiB | 64.00 KiB/s   Writing objects:  73% (623/846), 16.39 MiB | 74.00 KiB/s   Writing objects:  74% (627/846), 16.39 MiB | 74.00 KiB/s   Writing objects:  74% (628/846), 16.52 MiB | 79.00 KiB/s   Writing objects:  74% (630/846), 16.58 MiB | 75.00 KiB/s   Writing objects:  75% (635/846), 16.70 MiB | 73.00 KiB/s   Writing objects:  75% (637/846), 16.77 MiB | 75.00 KiB/s   Writing objects:  75% (639/846), 16.83 MiB | 54.00 KiB/s   Writing objects:  76% (643/846), 16.83 MiB | 54.00 KiB/s   Writing objects:  77% (652/846), 17.08 MiB | 67.00 KiB/s   Writing objects:  77% (655/846), 17.27 MiB | 90.00 KiB/s   Writing objects:  77% (659/846), 17.39 MiB | 89.00 KiB/s   Writing objects:  78% (660/846), 17.39 MiB | 89.00 KiB/s   Writing objects:  78% (664/846), 17.52 MiB | 89.00 KiB/s   Writing objects:  79% (669/846), 17.52 MiB | 89.00 KiB/s   Writing objects:  79% (669/846), 17.64 MiB | 95.00 KiB/s   Writing objects:  79% (675/846), 17.70 MiB | 159.00 KiB/s   Writing objects:  80% (677/846), 17.83 MiB | 130.00 KiB/s   Writing objects:  80% (678/846), 17.89 MiB | 118.00 KiB/s   Writing objects:  80% (681/846), 17.95 MiB | 119.00 KiB/s   Writing objects:  81% (686/846), 18.02 MiB | 114.00 KiB/s   Writing objects:  81% (686/846), 18.08 MiB | 112.00 KiB/s   Writing objects:  81% (691/846), 18.20 MiB | 112.00 KiB/s   Writing objects:  82% (694/846), 18.20 MiB | 110.00 KiB/s   Writing objects:  82% (700/846), 18.33 MiB | 107.00 KiB/s   Writing objects:  82% (701/846), 18.39 MiB | 65.00 KiB/s   Writing objects:  83% (703/846), 18.39 MiB | 65.00 KiB/s   Writing objects:  83% (703/846), 18.58 MiB | 74.00 KiB/s   Writing objects:  83% (706/846), 18.83 MiB | 86.00 KiB/s   Writing objects:  83% (707/846), 18.95 MiB | 93.00 KiB/s   Writing objects:  83% (709/846), 19.08 MiB | 85.00 KiB/s   Writing objects:  83% (710/846), 19.08 MiB | 85.00 KiB/s   Writing objects:  84% (711/846), 19.20 MiB | 94.00 KiB/s   Writing objects:  84% (711/846), 19.27 MiB | 91.00 KiB/s   Writing objects:  84% (712/846), 19.33 MiB | 150.00 KiB/s   Writing objects:  84% (712/846), 19.33 MiB | 77.00 KiB/s   Writing objects:  84% (716/846), 19.70 MiB | 91.00 KiB/s   Writing objects:  84% (718/846), 19.83 MiB | 89.00 KiB/s   Writing objects:  85% (720/846), 19.89 MiB | 92.00 KiB/s   Writing objects:  85% (721/846), 20.02 MiB | 94.00 KiB/s   Writing objects:  85% (722/846), 20.20 MiB | 93.00 KiB/s   Writing objects:  85% (723/846), 20.33 MiB | 102.00 KiB/s   Writing objects:  85% (723/846), 20.39 MiB | 155.00 KiB/s   Writing objects:  85% (725/846), 20.52 MiB | 117.00 KiB/s   Writing objects:  85% (726/846), 20.64 MiB | 115.00 KiB/s   Writing objects:  85% (727/846), 20.77 MiB | 111.00 KiB/s   Writing objects:  86% (728/846), 20.77 MiB | 111.00 KiB/s   Writing objects:  86% (728/846), 20.83 MiB | 112.00 KiB/s   Writing objects:  86% (731/846), 20.95 MiB | 108.00 KiB/s   Writing objects:  86% (731/846), 21.20 MiB | 126.00 KiB/s   Writing objects:  86% (732/846), 21.20 MiB | 126.00 KiB/s   Writing objects:  87% (737/846), 21.33 MiB | 134.00 KiB/s   Writing objects:  87% (739/846), 21.45 MiB | 144.00 KiB/s   Writing objects:  87% (739/846), 21.45 MiB | 72.00 KiB/s   Writing objects:  88% (745/846), 21.45 MiB | 72.00 KiB/s   Writing objects:  88% (748/846), 21.45 MiB | 72.00 KiB/s   Writing objects:  89% (753/846), 21.81 MiB | 98.00 KiB/s   Writing objects:  89% (757/846), 21.94 MiB | 104.00 KiB/s   Writing objects:  90% (762/846), 22.00 MiB | 100.00 KiB/s   Writing objects:  90% (763/846), 22.00 MiB | 100.00 KiB/s   Writing objects:  90% (766/846), 22.19 MiB | 97.00 KiB/s   Writing objects:  91% (770/846), 22.19 MiB | 97.00 KiB/s   Writing objects:  91% (774/846), 22.25 MiB | 94.00 KiB/s   Writing objects:  91% (774/846), 22.25 MiB | 62.00 KiB/s   Writing objects:  91% (775/846), 22.50 MiB | 70.00 KiB/s   Writing objects:  91% (776/846), 22.69 MiB | 90.00 KiB/s   Writing objects:  91% (776/846), 22.88 MiB | 91.00 KiB/s   Writing objects:  91% (777/846), 22.94 MiB | 86.00 KiB/s   Writing objects:  91% (777/846), 23.06 MiB | 94.00 KiB/s   Writing objects:  91% (778/846), 23.12 MiB | 89.00 KiB/s   Writing objects:  91% (778/846), 23.25 MiB | 74.00 KiB/s   Writing objects:  92% (779/846), 23.25 MiB | 74.00 KiB/s   Writing objects:  92% (780/846), 23.59 MiB | 89.00 KiB/s   Writing objects:  92% (780/846), 23.72 MiB | 98.00 KiB/s   Writing objects:  92% (781/846), 23.91 MiB | 94.00 KiB/s   Writing objects:  92% (781/846), 23.97 MiB | 95.00 KiB/s   Writing objects:  92% (782/846), 24.03 MiB | 90.00 KiB/s   Writing objects:  92% (782/846), 24.16 MiB | 92.00 KiB/s   Writing objects:  92% (783/846), 24.28 MiB | 119.00 KiB/s   Writing objects:  92% (784/846), 24.34 MiB | 107.00 KiB/s   Writing objects:  92% (784/846), 24.47 MiB | 116.00 KiB/s   Writing objects:  92% (784/846), 24.59 MiB | 62.00 KiB/s   Writing objects:  92% (786/846), 24.95 MiB | 90.00 KiB/s   Writing objects:  92% (786/846), 25.02 MiB | 90.00 KiB/s   Writing objects:  93% (787/846), 25.08 MiB | 91.00 KiB/s   Writing objects:  93% (787/846), 25.14 MiB | 90.00 KiB/s   Writing objects:  93% (788/846), 25.20 MiB | 91.00 KiB/s   Writing objects:  93% (788/846), 25.39 MiB | 92.00 KiB/s   Writing objects:  93% (788/846), 25.52 MiB | 97.00 KiB/s   Writing objects:  93% (789/846), 25.64 MiB | 118.00 KiB/s   Writing objects:  93% (789/846), 25.77 MiB | 116.00 KiB/s   Writing objects:  93% (790/846), 25.83 MiB | 116.00 KiB/s   Writing objects:  93% (790/846), 25.95 MiB | 121.00 KiB/s   Writing objects:  93% (791/846), 26.08 MiB | 115.00 KiB/s   Writing objects:  93% (791/846), 26.20 MiB | 117.00 KiB/s   Writing objects:  93% (792/846), 26.39 MiB | 126.00 KiB/s   Writing objects:  93% (793/846), 26.52 MiB | 131.00 KiB/s   Writing objects:  93% (793/846), 26.64 MiB | 139.00 KiB/s   Writing objects:  93% (794/846), 26.83 MiB | 70.00 KiB/s   Writing objects:  93% (795/846), 27.14 MiB | 90.00 KiB/s   Writing objects:  94% (796/846), 27.14 MiB | 90.00 KiB/s   Writing objects:  94% (796/846), 27.33 MiB | 101.00 KiB/s   Writing objects:  94% (797/846), 27.52 MiB | 101.00 KiB/s   Writing objects:  94% (798/846), 27.58 MiB | 97.00 KiB/s   Writing objects:  94% (798/846), 27.77 MiB | 92.00 KiB/s   Writing objects:  94% (798/846), 27.89 MiB | 93.00 KiB/s   Writing objects:  94% (798/846), 27.89 MiB | 98.00 KiB/s   Writing objects:  94% (800/846), 28.22 MiB | 100.00 KiB/s   Writing objects:  94% (800/846), 28.34 MiB | 94.00 KiB/s   Writing objects:  94% (801/846), 28.47 MiB | 89.00 KiB/s   Writing objects:  94% (801/846), 28.59 MiB | 94.00 KiB/s   Writing objects:  94% (802/846), 28.72 MiB | 90.00 KiB/s   Writing objects:  94% (802/846), 28.78 MiB | 82.00 KiB/s   Writing objects:  94% (802/846), 28.78 MiB | 88.00 KiB/s   Writing objects:  95% (804/846), 28.97 MiB | 72.00 KiB/s   Writing objects:  95% (805/846), 29.34 MiB | 88.00 KiB/s   Writing objects:  95% (805/846), 29.41 MiB | 88.00 KiB/s   Writing objects:  95% (806/846), 29.53 MiB | 85.00 KiB/s   Writing objects:  95% (807/846), 29.59 MiB | 85.00 KiB/s   Writing objects:  95% (807/846), 29.78 MiB | 101.00 KiB/s   Writing objects:  95% (808/846), 30.09 MiB | 114.00 KiB/s   Writing objects:  95% (812/846), 30.16 MiB | 101.00 KiB/s   Writing objects:  96% (813/846), 30.23 MiB | 92.00 KiB/s   Writing objects:  96% (817/846), 30.28 MiB | 91.00 KiB/s   Writing objects:  97% (821/846), 30.41 MiB | 92.00 KiB/s   Writing objects:  97% (825/846), 30.59 MiB | 92.00 KiB/s   Writing objects:  97% (829/846), 30.72 MiB | 171.00 KiB/s   Writing objects:  98% (830/846), 30.72 MiB | 114.00 KiB/s   Writing objects:  98% (831/846), 30.78 MiB | 117.00 KiB/s   Writing objects:  98% (837/846), 30.84 MiB | 113.00 KiB/s   Writing objects:  99% (838/846), 30.84 MiB | 113.00 KiB/s   Writing objects:  99% (840/846), 31.03 MiB | 62.00 KiB/s   Writing objects: 100% (846/846), 31.03 MiB | 62.00 KiB/s   Writing objects: 100% (846/846), 31.12 MiB | 96.00 KiB/s, done.
+Total 846 (delta 734), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/734)[Kremote: Resolving deltas:  17% (130/734)[Kremote: Resolving deltas:  26% (194/734)[Kremote: Resolving deltas:  38% (284/734)[Kremote: Resolving deltas:  40% (296/734)[Kremote: Resolving deltas:  45% (336/734)[Kremote: Resolving deltas:  66% (488/734)[Kremote: Resolving deltas:  67% (497/734)[Kremote: Resolving deltas:  80% (592/734)[Kremote: Resolving deltas:  83% (614/734)[Kremote: Resolving deltas:  84% (620/734)[Kremote: Resolving deltas:  86% (638/734)[Kremote: Resolving deltas:  91% (669/734)[Kremote: Resolving deltas:  92% (680/734)[Kremote: Resolving deltas:  94% (696/734)[Kremote: Resolving deltas:  96% (708/734)[Kremote: Resolving deltas:  97% (712/734)[Kremote: Resolving deltas:  98% (720/734)[Kremote: Resolving deltas:  99% (727/734)[Kremote: Resolving deltas: 100% (734/734)[Kremote: Resolving deltas: 100% (734/734), completed with 14 local objects.[K
+To https://github.com/gcgibson/kcde-new
+   f8afbbd..80a384f  master -> master
+]0;~/kcde-new(base) gcgibsons-MacBook-Pro:kcde-new gcgibson$ git add -A
