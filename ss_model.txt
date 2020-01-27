@@ -1,0 +1,32 @@
+
+          model {  
+             # priors on parameters
+             mu ~ dnorm(0, 0.01); 
+             tau.pro ~ dgamma(0.001,0.001); 
+             sd.q <- 1/sqrt(tau.pro);
+             tau.obs ~ dgamma(0.001,0.001);
+             sd.r <- 1/sqrt(tau.obs); 
+             phi ~ dnorm(0,1);
+             phi2 ~ dnorm(0,1);
+
+             
+            for (s in 1:5){
+             X[1,s] <- mu;
+             predY[1,s] <- X[1,s];
+             Y[1,s] ~ dnorm(X[1,s], tau.obs);
+            }
+            Z[1] <- mu;
+
+            for (i in 2:52){
+               Z[i] ~ dnorm(phi2*Z[i-1],tau.pro);
+            }
+            for (s in 1:5){
+               for(i in 2:52) {
+                  predX[i,s] <- phi*X[i-1,s]; 
+                  X[i,s] ~ dnorm(predX[i,s],tau.pro); # Process variation
+                  predY[i,s] <- X[i,s];
+                  Y[i,s] ~ dnorm(X[i,s] + Z[i], tau.obs); # Observation variation
+               }
+            }
+          }  
+          

@@ -6,6 +6,12 @@ output: pdf_document
 ---
 
 Utility function to get data for a specific epiweek, specific issue date, and specific region. 
+
+```{r}
+score_dist <- function(dist,truth){
+  return (sum(round(dist,1) ==  round(truth,1))/length(dist))
+}
+```
 ```{r}
 predownload_data <- function(){
   data_obj <- list()
@@ -47,7 +53,6 @@ Code for data set-up and evaluation given a specific region.
 ```{r}
 library(quantmod)
 library(pander)
-library(kcde)
 library(cdcfluview)
 library(sarimaTD)
 library(cdcfluutils)
@@ -80,7 +85,7 @@ for (location in 1:length(region_str)){
     #sarima_fit_bc_transform <- auto.arima(train_data)
     print (sarima_fit_bc_transform)
 
-    rbf_fit_ret_list <- fit_rbf(train_data,num_lags = 1,h = 1)
+    rbf_fit_ret_list <- fit_rbf_jags(train_data,num_lags = 1,h = 1)
     rbf_fit <- rbf_fit_ret_list[[1]]
     rbf_fit2 <- rbf_fit_ret_list[[2]]
     rbf_fit3 <- rbf_fit_ret_list[[3]]
@@ -117,15 +122,11 @@ for (location in 1:length(region_str)){
         kcde_pred_dist <-stats::predict(rbf_fit,newdata=test_idx,h=1) +
         stats::predict(rbf_fit2,newdata=test_idx) + logit(test_data[test_idx]/100)
       } else if(h==2){
-        kcde_pred_dist <-stats::predict(rbf_fit,newdata=test_idx) + 
-          stats::predict(rbf_fit,newdata=test_idx+1) +
-        stats::predict(rbf_fit2,newdata=test_idx )/2 +
-          stats::predict(rbf_fit2,newdata=test_idx +1 )/2+
-          stats::predict(rbf_fit3,newdata=test_idx )/6 +
-            stats::predict(rbf_fit3,newdata=test_idx +1)/6 +
+        kcde_pred_dist <-rbf_fit[test_idx] + 
+          rbf_fit[test_idx]+
            logit(test_data[test_idx]/100)
       }
-      kcde_pred_dist <- inv.logit(rnorm(10000,kcde_pred_dist,2*rbf_var))*100
+      kcde_pred_dist <- inv.logit(rnorm(10000,kcde_pred_dist,2*.1))*100
 
       
       sarima_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( sarima_pred_dist,truth) )
@@ -180,7 +181,7 @@ ggsave(filename = "regional_results",plot = p,device = "png")
 
 
 ```{r}
-library(reticulate)
+#library(reticulate)
 #use_python("/Users/gcgibson/anaconda/bin/python2.7")
 #reticulate::source_python("test.py")
 fit_rbf <- function(ts_local,num_lags,h){
@@ -211,6 +212,74 @@ fit_rbf <- function(ts_local,num_lags,h){
   
     return(ret_list)
 }
+
+library(R2jags)
+library(rjags)
+
+fit_rbf_jags <- function(ts_local,num_lags,h){
+    ts_local <- logit(ts_local/100)
+
+  
+        
+        
+    diff_data <- data.frame(x=rep(1:52,length.out=6*52),y=c(diff(ts_local),rep(NA,length.out=6*52-length(diff(ts_local)))))
+        diff_data_2 <- data.frame(x=rep(1:52,length.out=length(diff(ts_local,differences=2))),y=diff(ts_local,differences=2))
+        diff_data_3 <- data.frame(x=rep(1:52,length.out=length(diff(ts_local,differences=3))),y=diff(ts_local,differences=3))
+        
+        
+        model.loc=("ss_model.txt")
+          jagsscript = cat("
+          model {  
+             # priors on parameters
+             mu ~ dnorm(0, 0.01); 
+             tau.pro ~ dgamma(0.001,0.001); 
+             sd.q <- 1/sqrt(tau.pro);
+             tau.obs ~ dgamma(0.001,0.001);
+             sd.r <- 1/sqrt(tau.obs); 
+             phi ~ dnorm(0,1);
+             phi2 ~ dnorm(0,1);
+
+             
+            for (s in 1:5){
+             X[1,s] <- mu;
+             predY[1,s] <- X[1,s];
+             Y[1,s] ~ dnorm(X[1,s], tau.obs);
+            }
+            Z[1] <- mu;
+
+            for (i in 2:52){
+               Z[i] ~ dnorm(phi2*Z[i-1],tau.pro);
+            }
+            for (s in 1:5){
+               for(i in 2:52) {
+                  predX[i,s] <- phi*X[i-1,s]; 
+                  X[i,s] ~ dnorm(predX[i,s],tau.pro); # Process variation
+                  predY[i,s] <- X[i,s];
+                  Y[i,s] ~ dnorm(X[i,s] + Z[i], tau.obs); # Observation variation
+               }
+            }
+          }  
+          ",file=model.loc)
+        
+        jags.data = list("Y"=t(matrix(diff_data$y,ncol=52)))
+        jags.params=c("sd.q","sd.r","predY","mu","Z")
+        mod_ss = jags(jags.data, parameters.to.save=jags.params, model.file=model.loc, n.chains = 3, 
+        n.burnin=5000, n.thin=1, n.iter=10000, DIC=TRUE)  
+       
+        #colMeans(mod_ss$BUGSoutput$sims.matrix[,paste0("Z[",1:52,"]")])
+        ret_list <- list()
+        ret_list[[1]] <- colMeans(mod_ss$BUGSoutput$sims.matrix[,paste0("Z[",1:52,"]")])
+        ret_list[[2]] <- 1
+        ret_list[[3]] <- 1
+
+        ret_list[[4]] <- 1
+    
+   
+  
+  
+    return(ret_list)
+}
+
 
 #debug(fit_and_predict_rbf)
 
