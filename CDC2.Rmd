@@ -1,0 +1,132 @@
+---
+title: "CDC"
+author: "Graham Casey Gibson"
+date: "1/1/2020"
+output: pdf_document
+---
+
+Utility function to get data for a specific epiweek, specific issue date, and specific region. 
+
+```{r}
+score_dist <- function(dist,truth){
+  return (max(log(sum(round(dist,1) ==  round(truth,1))/length(dist)),-10))
+}
+```
+```{r}
+predownload_data <- function(){
+  data_obj <- list()
+  data_obj_idx <- 1
+  for (region in c('al', 'ak', 'az', 'ca', 'co', 'ct','de','fl','ga', 'hi', 'id', 'il','in', 'ia', 'ks', 'ky', 'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'nm', 'ny_minus_jfk', 'nc', 'nd', 'oh', 'ok', 'or','pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy','as','mp', 'dc', 'gu', 'pr', 'vi', 'ord', 'lax', 'jfk')){
+    req <- curl_fetch_memory(paste0("https://delphi.midas.cs.cmu.edu/epidata/api.php?source=fluview&regions=",region,"&epiweeks=201240-201920"))
+    req_json <- jsonlite::prettify(rawToChar(req$content))
+    data_obj[[data_obj_idx]] <- jsonlite::fromJSON(req_json)$epidata
+    data_obj_idx <- data_obj_idx +1
+  }
+  total_data <- do.call(rbind, data_obj)
+  saveRDS(total_data,"data.RDS")
+}
+
+
+get_ili_for_epiweek_and_issue <- function(start_epiweek,end_epiweek,region){
+  total_data <- readRDS("data.RDS")
+  return (total_data[total_data$region == region & total_data$epiweek <= end_epiweek & total_data$epiweek >= start_epiweek ,])
+  
+}
+
+
+```
+```{r}
+
+plot_predictive_dist <- function(pred_dist,truth,test_idx,method,previous_point,location){
+  p <-ggplot(data=data.frame(x = pred_dist),aes(x=x)) + geom_histogram()+geom_vline(xintercept =truth ) +xlim(0,10) + geom_vline(xintercept = previous_point,col='blue')
+      ggsave(filename = paste0(location,"-",method,"-",test_idx),plot = p,device = "png")
+}
+
+plot_data_till_time_t <- function(data){
+  p <-ggplot(data=data.frame(x = 1:length(data),y=data),aes(x=x,y=y)) + geom_line()
+      ggsave(filename = paste0("data-",test_idx),plot = p,device = "png")
+}
+```
+
+Code for data set-up and evaluation given a specific region.
+
+```{r}
+library(quantmod)
+library(pander)
+library(cdcfluview)
+library(sarimaTD)
+library(cdcfluutils)
+library(ggplot2)
+
+## declare region to be analyzed 
+region_str <- c("Alabama","Alaska","Arizona","California","Colorado","Connecticut", "Delaware","Georgia","Hawaii","Idaho", "Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana", "Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana", "Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont", "Virginia","Washington","West Virginia","Wisconsin","Wyoming")
+
+region_abbrv <- c('al', 'ak', 'az', 'ca', 'co', 'ct','de','ga', 'hi', 'id', 'il','in', 'ia', 'ks', 'ky', 'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'nm', 'ny_minus_jfk', 'nc', 'nd', 'oh', 'ok', 'or','pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy')
+
+
+### first lets collect all the training data
+state_data <- matrix(nrow=length(region_str),ncol=105)
+
+for (location in 1:length(region_str)){
+    region_str_local <- region_str[location]
+    region_abbrv_local <- region_abbrv[location]
+    train_data <- get_ili_for_epiweek_and_issue("201640","201840",region_abbrv_local)
+    state_data[location,] <- train_data$wili
+    
+}
+
+### plot state data
+
+ggplot(data=data.frame(y=c(state_data),x=rep(1:105,48),group=rep(48,each=105)),aes(x=x,y=y,col=group))+ geom_line() + facet_wrap(~group) 
+
+state_data <- read.csv("/Users/gcgibson/KCDETD/data/state_data.csv")
+ma_data <- state_data[state_data$region == "Massachusetts",]
+
+plot(ma_data$unweighted_ili)
+
+library(sarimaTD)
+sarima_fit_bc_transform <- fit_sarima(
+       y =ma_data$unweighted_ili[1:300],
+      ts_frequency = 52,
+      transformation = "none",
+      seasonal_difference = F)
+
+model.loc = "arma.txt"
+model_code <- cat('
+model {
+  # Set up residuals
+    for(t in 1:max(p,q)) {
+      eps[t] <- d[t] - alpha
+    } 
+
+
+
+  for (t in (max(p,q)+1):T) {
+      d[t] ~ dnorm(alpha + ar_mean[t] + ma_mean[t]  , sigma)
+      ma_mean[t] <- inprod(theta, eps[(t-q):(t-1)])
+      ar_mean[t] <- inprod(phi, d[(t-p):(t-1)])
+      eps[t] <- d[t] - alpha - ar_mean[t] - ma_mean[t]
+    }
+  # Likelihood
+  # Priors
+  alpha ~ dnorm(0.0,0.01)
+  alpha_s ~ dnorm(0.0,0.01)
+  sigma ~ dgamma(.001,.001);
+  gamma_1 ~ dunif(0, 10)
+  gamma_2 ~ dunif(0, 1)
+  for (i in 1:q) {
+    theta[i] ~ dnorm(0.0,0.01)
+  }
+  for(i in 1:p) {
+    phi[i] ~ dnorm(0.0,0.01)
+  }
+}',file=model.loc)
+library(R2jags)
+jags.data = list(d= c(ma_data$unweighted_ili[1:300],NA),p=1,q=1,T=301)
+jags.params = c("d")
+mod_ar1_intercept = jags(jags.data, parameters.to.save = jags.params, 
+    model.file = model.loc, n.chains = 3, n.burnin = 5000, n.thin = 1, 
+    n.iter = 10000, DIC = TRUE)
+
+
+```
