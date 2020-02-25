@@ -1,4 +1,5 @@
-fit_and_predict_jags <- function(data,h){
+fit_and_predict_jags <- function(data,h,epiweeks){
+  epiweeks <- as.numeric(epiweeks)
 model.loc = "arma.txt"
 model_code <- cat('
                   model {
@@ -13,9 +14,15 @@ model_code <- cat('
                   for (t in 2:T){
                     X[t] ~ dnorm(X[t-1],10);
                   }
+
+                  S[1] <- 0
+                  
+                  for (t in 2:53){
+                      S[t] ~ dnorm(S[t-1],100);
+                  }
                   
                   for (t in (max(p,q)+1):T) {
-                  d[t] ~ dnorm(alpha + ar_mean[t] + ma_mean[t]  + X[t] , sigma)
+                  d[t] ~ dnorm(alpha + ar_mean[t] + ma_mean[t]  + X[t] + S[week[t]] , sigma)
                   ma_mean[t] <- inprod(theta, eps[(t-q):(t-1)])
                   ar_mean[t] <- inprod(phi, d[(t-p):(t-1)])
                   eps[t] <- d[t] - alpha - ar_mean[t] - ma_mean[t]
@@ -48,8 +55,8 @@ transformed_data <- car::bcPower(
   U = data + bc_params$gamma,
   lambda = bc_params$lambda)
 
-
-jags.data = list(d= c(transformed_data,NA),p=2,q=3,T=length(transformed_data)+1)
+week_ahead <- ifelse(mod(tail(epiweeks,1)+h,52)==0,52,mod(tail(epiweeks,1)+h,52))
+jags.data = list(d= c(transformed_data,NA),p=2,q=3,T=length(transformed_data)+1,week=c(epiweeks,week_ahead))
 jags.params = c("d")
 mod_ar1_intercept = jags(jags.data, parameters.to.save = jags.params, 
     model.file = model.loc, n.chains = 3, n.burnin = 5000, n.thin = 1, 
@@ -58,6 +65,7 @@ posterior <-mod_ar1_intercept$BUGSoutput$sims.matrix[,paste0("d[",length(data)+h
 
 return (invert_bc_transform(posterior,bc_params$lambda,bc_params$gamma))
 }
+
 
 invert_bc_transform <- function(b, lambda, gamma) {
   ## Two steps: 1) undo box-cox 2) subtract offset gamma

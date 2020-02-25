@@ -125,7 +125,7 @@ for (location in 1:length(region_str)){
       
      # kcde_pred_dist <- kcde_pred_dist[!is.na(kcde_pred_dist)]
      # kcde_pred_dist <- kcde_pred_dist[!is.nan(kcde_pred_dist)]
-      kcde_pred_dist <- fit_and_predict_jags(data = c(train_data$wili,test_data$wili[1:test_idx]),h=1)
+      kcde_pred_dist <- fit_and_predict_jags(data = c(train_data$wili,test_data$wili[1:test_idx]),h=1,epiweeks=c(substr(train_data$epiweek,5,7),substr(test_data$epiweek[1:test_idx],5,7)))
       
       sarima_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( sarima_pred_dist,truth) )
       kcde_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( kcde_pred_dist,truth) )

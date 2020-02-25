@@ -11,9 +11,15 @@
                   for (t in 2:T){
                     X[t] ~ dnorm(X[t-1],10);
                   }
+
+                  S[1] <- 0
+                  
+                  for (t in 2:53){
+                      S[t] ~ dnorm(S[t-1],100);
+                  }
                   
                   for (t in (max(p,q)+1):T) {
-                  d[t] ~ dnorm(alpha + ar_mean[t] + ma_mean[t]  + X[t] , sigma)
+                  d[t] ~ dnorm(alpha + ar_mean[t] + ma_mean[t]  + X[t] + S[week[t]] , sigma)
                   ma_mean[t] <- inprod(theta, eps[(t-q):(t-1)])
                   ar_mean[t] <- inprod(phi, d[(t-p):(t-1)])
                   eps[t] <- d[t] - alpha - ar_mean[t] - ma_mean[t]
