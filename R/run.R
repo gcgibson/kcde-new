@@ -96,14 +96,8 @@ for (location in 1:length(region_str)){
     kcde_pred_dist <- fit_and_predict_jags(data = c(train_data$wili,test_data$wili[1:test_idx]),epiweeks=c(substr(train_data$epiweek,5,7),substr(test_data$epiweek[1:test_idx],5,7)),
                                            params_ar=sarima_fit_bc_transform$arma)
     
-    sarima_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( sarima_pred_dist,truth) )
-    kcde_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( kcde_pred_dist,truth) )
-    plot_predictive_dist(pred_dist =sarima_pred_dist,truth = truth,test_idx = test_idx,method="sarima" ,previous_point = tail(test_data$wili,1),location=location)
-    plot_predictive_dist(pred_dist =kcde_pred_dist,truth=truth,test_idx = test_idx,method="kcde",previous_point = tail(test_data$wili,1),location=location) 
-    ### SCORE DATAFRAME COUNTER
-    score_idx <- score_idx +1
-    
-    
+  
+    create_submission_file(p_samples = kcde_pred_dist,season = 1,epiweek = test_idx,regions = region_abbrv_local,method = "sarima")
     
   }
 }
@@ -111,14 +105,6 @@ for (location in 1:length(region_str)){
 
 #### plots
 
-kcde_score_df <- readRDS("kcde_score_df_2016-2017_h_2")
-sarima_score_df <- readRDS("sarima_score_df_2016-2017_h_2")
-kcde_score_df <- kcde_score_df[complete.cases(kcde_score_df),]
-sarima_score_df <- sarima_score_df[complete.cases(sarima_score_df),]
-
-total_score_df <- merge(kcde_score_df,sarima_score_df)
-total_score_df$sarima_ls <- as.numeric(as.character(total_score_df$sarima_ls))
-total_score_df$kcde_ls <- as.numeric(as.character(total_score_df$kcde_ls))
 
 
 library(ggplot2)
@@ -128,3 +114,57 @@ data_for_plot <- total_score_df[total_score_df$epiweek %in% 4:30,] %>% dplyr::gr
 p <- ggplot(data_for_plot,aes(x=region,y=sarima_ls,col='sarimaTD')) + geom_point() +
   geom_point(aes(x=region,y=kcde_ls,col='sarimaTDS')) + ylim(-10,0)
 ggsave(filename = "regional_results",plot = p,device = "png")
+
+
+create_submission_file <- function(p_samples,season,epiweek,regions,method){
+  
+  
+  p_samples <- array(pmax(pmin(100,p_samples),0.0),dim=dim(p_samples))
+  
+  # load required libraries
+  library(cdcfluutils)
+  library(predx)
+  
+  # create variables to pass into predx
+  analysis_time_season = season 
+  analysis_time_season_week <- 0
+  weeks_in_first_season_year <- get_num_MMWR_weeks_in_first_season_year(analysis_time_season)
+  last_analysis_time_season_week = 41
+  max_prediction_horizon <- 4
+  first_analysis_time_season_week = 10
+  
+  # create empy list to hold all region submission files
+  predx_list <- list()
+  
+  #create region counter
+  region_idx <- 1
+  
+  #iterate through regions to create submission file per region
+  for (reg in regions){
+    print (reg)
+    predx_list[[region_idx]] <- get_predx_forecasts_from_trajectory_samples(trajectory_samples = p_samples, 
+                                                                            location = reg, targets = c( paste0(1:4, " wk ahead")), 
+                                                                            season = analysis_time_season, analysis_time_season_week = analysis_time_season_week, 
+                                                                            first_analysis_time_season_week = first_analysis_time_season_week, 
+                                                                            last_analysis_time_season_week = last_analysis_time_season_week, 
+                                                                            predx_types = c("Sample", "Bin", "Point"))
+    
+    region_idx <- region_idx +1
+    
+  }
+  
+  #concate to a single object
+  pred_to_write <- dplyr::rbind_list(predx_list) 
+  # create the submission df
+  library(dplyr)
+  submission_df <- predx_to_submission_df(pred_to_write, ew = substr(epiweek,5,7), year = substr(epiweek,1,4), team = paste0(model,"-","projected"))  
+  
+  if (as.numeric(substr(epiweek,5,7)) <= 20){
+    current_season_identifier <- substr(season,6,10)
+  } else{
+    current_season_identifier <- substr(season,1,4)
+  }
+  write.csv(submission_df,row.names = F, file =paste0(method,"-","EW",substr(epiweek,5,7),"-",regions,"-",current_season_identifier,".csv"))
+  
+}
+

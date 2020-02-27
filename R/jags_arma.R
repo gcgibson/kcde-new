@@ -66,7 +66,7 @@ jags.params = c("d")
 mod_ar1_intercept = jags(jags.data, parameters.to.save = jags.params, 
     model.file = model.loc, n.chains = 3, n.burnin = 5000, n.thin = 1, 
     n.iter = 10000, DIC = TRUE)
-posterior <-mod_ar1_intercept$BUGSoutput$sims.matrix[,paste0("d[",length(data):(length(data)+length(weeks_to_simulate)),"]")][1:10000]
+posterior <-mod_ar1_intercept$BUGSoutput$sims.matrix[,paste0("d[",length(data):(length(data)+length(weeks_to_simulate)),"]")][1:10000,]
 
 return (invert_bc_transform(posterior,bc_params$lambda,bc_params$gamma))
 }
