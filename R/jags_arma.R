@@ -1,4 +1,4 @@
-fit_and_predict_jags <- function(data,h,epiweeks,params_ar){
+fit_and_predict_jags <- function(data,epiweeks,params_ar){
   epiweeks <- as.numeric(epiweeks)
 model.loc = "arma.txt"
 model_code <- cat('
@@ -55,13 +55,18 @@ transformed_data <- car::bcPower(
   U = data + bc_params$gamma,
   lambda = bc_params$lambda)
 
-week_ahead <- ifelse(mod(tail(epiweeks,1)+h,52)==0,52,mod(tail(epiweeks,1)+h,52))
-jags.data = list(d= c(transformed_data,NA),p=params_ar[1],q=params_ar[2],T=length(transformed_data)+1,week=c(epiweeks,week_ahead))
+#need a utility function to get all weeks ahead
+weeks_to_model <- c(44:52,1:17)
+current_week <- tail(epiweeks,1)
+current_week_idx <- which(weeks_to_model==current_week)
+weeks_to_simulate <- weeks_to_model[5:length(weeks_to_model)]
+
+jags.data = list(d= c(transformed_data,rep(NA,length(weeks_to_simulate))),p=params_ar[1],q=params_ar[2],T=length(transformed_data)+length(weeks_to_simulate),week=c(epiweeks,weeks_to_simulate))
 jags.params = c("d")
 mod_ar1_intercept = jags(jags.data, parameters.to.save = jags.params, 
     model.file = model.loc, n.chains = 3, n.burnin = 5000, n.thin = 1, 
     n.iter = 10000, DIC = TRUE)
-posterior <-mod_ar1_intercept$BUGSoutput$sims.matrix[,paste0("d[",length(data)+h,"]")][1:10000]
+posterior <-mod_ar1_intercept$BUGSoutput$sims.matrix[,paste0("d[",length(data):(length(data)+length(weeks_to_simulate)),"]")][1:10000]
 
 return (invert_bc_transform(posterior,bc_params$lambda,bc_params$gamma))
 }

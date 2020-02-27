@@ -92,23 +92,9 @@ for (location in 1:length(region_str)){
     
     sarima_pred_dist <- sarima_pred_dist[!is.na(sarima_pred_dist)]
     sarima_pred_dist <- sarima_pred_dist[!is.nan(sarima_pred_dist)]
-    
-    #KCDE model
-    #decomp <- stl(ts(c(train_data$wili,test_data$wili[1:test_idx]),frequency = 52),s.window = 52,t.window = 4)
-    
-    #kcde_pred_dist<- simulate(
-    #  object = sarima_fit_bc_transform,
-    #  nsim = 10000,
-    #  seed = 1,
-    #  newdata = decomp$time.series[,1] + decomp$time.series[,2],
-    #  h = h
-    #)
-    # kcde_pred_dist <- kcde_pred_dist[,h]
-    
-    # kcde_pred_dist <- kcde_pred_dist[!is.na(kcde_pred_dist)]
-    # kcde_pred_dist <- kcde_pred_dist[!is.nan(kcde_pred_dist)]
-    kcde_pred_dist <- fit_and_predict_jags(data = c(train_data$wili,test_data$wili[1:test_idx]),h=1,epiweeks=c(substr(train_data$epiweek,5,7),substr(test_data$epiweek[1:test_idx],5,7)),
-                                           params=sarima_fit_bc_transform$arma)
+  
+    kcde_pred_dist <- fit_and_predict_jags(data = c(train_data$wili,test_data$wili[1:test_idx]),epiweeks=c(substr(train_data$epiweek,5,7),substr(test_data$epiweek[1:test_idx],5,7)),
+                                           params_ar=sarima_fit_bc_transform$arma)
     
     sarima_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( sarima_pred_dist,truth) )
     kcde_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( kcde_pred_dist,truth) )
@@ -121,22 +107,6 @@ for (location in 1:length(region_str)){
     
   }
 }
-
-kcde_score_df <- data.frame(kcde_score_df)
-colnames(kcde_score_df) <- c("region","epiweek","kcde_ls")
-saveRDS(object = kcde_score_df,file="kcde_score_df_2016-2017_h_2")
-
-sarima_score_df <- data.frame(sarima_score_df)
-colnames(sarima_score_df) <- c("region","epiweek","sarima_ls")
-saveRDS(object = sarima_score_df,file="sarima_score_df_2016-2017_h_2")
-
-
-print (mean(as.numeric(as.character(kcde_score_df$kcde_ls)),na.rm=T))
-print (mean(as.numeric(as.character(sarima_score_df$sarima_ls)),na.rm=T))
-
-print (mean(as.numeric(as.character(kcde_score_df$kcde_ls)),na.rm=T))-print (mean(as.numeric(as.character(sarima_score_df$sarima_ls)),na.rm=T))
-
-
 
 
 #### plots
