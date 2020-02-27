@@ -1,4 +1,4 @@
-fit_and_predict_jags <- function(data,h,epiweeks){
+fit_and_predict_jags <- function(data,h,epiweeks,params_ar){
   epiweeks <- as.numeric(epiweeks)
 model.loc = "arma.txt"
 model_code <- cat('
@@ -56,7 +56,7 @@ transformed_data <- car::bcPower(
   lambda = bc_params$lambda)
 
 week_ahead <- ifelse(mod(tail(epiweeks,1)+h,52)==0,52,mod(tail(epiweeks,1)+h,52))
-jags.data = list(d= c(transformed_data,NA),p=2,q=3,T=length(transformed_data)+1,week=c(epiweeks,week_ahead))
+jags.data = list(d= c(transformed_data,NA),p=params_ar[1],q=params_ar[2],T=length(transformed_data)+1,week=c(epiweeks,week_ahead))
 jags.params = c("d")
 mod_ar1_intercept = jags(jags.data, parameters.to.save = jags.params, 
     model.file = model.loc, n.chains = 3, n.burnin = 5000, n.thin = 1, 

@@ -1,0 +1,160 @@
+score_dist <- function(dist,truth){
+  return (max(log(sum(round(dist,1) ==  round(truth,1))/length(dist)),-10))
+}
+
+predownload_data <- function(){
+  data_obj <- list()
+  data_obj_idx <- 1
+  for (region in c('al', 'ak', 'az', 'ca', 'co', 'ct','de','fl','ga', 'hi', 'id', 'il','in', 'ia', 'ks', 'ky', 'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'nm', 'ny_minus_jfk', 'nc', 'nd', 'oh', 'ok', 'or','pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy','as','mp', 'dc', 'gu', 'pr', 'vi', 'ord', 'lax', 'jfk')){
+    req <- curl_fetch_memory(paste0("https://delphi.midas.cs.cmu.edu/epidata/api.php?source=fluview&regions=",region,"&epiweeks=201240-201920"))
+    req_json <- jsonlite::prettify(rawToChar(req$content))
+    data_obj[[data_obj_idx]] <- jsonlite::fromJSON(req_json)$epidata
+    data_obj_idx <- data_obj_idx +1
+  }
+  total_data <- do.call(rbind, data_obj)
+  saveRDS(total_data,"data.RDS")
+}
+
+
+get_ili_for_epiweek_and_issue <- function(start_epiweek,end_epiweek,region){
+  total_data <- readRDS("data.RDS")
+  return (total_data[total_data$region == region & total_data$epiweek <= end_epiweek & total_data$epiweek >= start_epiweek ,])
+  
+}
+
+
+plot_predictive_dist <- function(pred_dist,truth,test_idx,method,previous_point,location){
+  p <-ggplot(data=data.frame(x = pred_dist),aes(x=x)) + geom_histogram()+geom_vline(xintercept =truth ) +xlim(0,10) + geom_vline(xintercept = previous_point,col='blue')
+  ggsave(filename = paste0(location,"-",method,"-",test_idx),plot = p,device = "png")
+}
+
+plot_data_till_time_t <- function(data){
+  p <-ggplot(data=data.frame(x = 1:length(data),y=data),aes(x=x,y=y)) + geom_line()
+  ggsave(filename = paste0("data-",test_idx),plot = p,device = "png")
+}
+
+library(quantmod)
+library(pander)
+library(cdcfluview)
+library(sarimaTD)
+library(cdcfluutils)
+library(ggplot2)
+
+## declare region to be analyzed 
+region_str <- c("Alabama","Alaska","Arizona","California","Colorado","Connecticut", "Delaware","Georgia","Hawaii","Idaho", "Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana", "Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana", "Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont", "Virginia","Washington","West Virginia","Wisconsin","Wyoming","As","mp","District of Columbia", "gu","Puerto Rico","Virgin Islands","ord","lax","New York City")
+
+region_abbrv <- c('al', 'ak', 'az', 'ca', 'co', 'ct','de','ga', 'hi', 'id', 'il','in', 'ia', 'ks', 'ky', 'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'nm', 'ny_minus_jfk', 'nc', 'nd', 'oh', 'ok', 'or','pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy','as','mp', 'dc', 'gu', 'pr', 'vi', 'ord', 'lax', 'jfk')
+
+
+kcde_score_df <- matrix(NA,nrow=55*68,ncol=3)
+sarima_score_df <- matrix(NA,nrow=55*68,ncol=3)
+h <- 2
+score_idx <-1
+for (location in 1:length(region_str)){
+  region_str_local <- region_str[location]
+  region_abbrv_local <- region_abbrv[location]
+  train_data <- get_ili_for_epiweek_and_issue("201640","201840",region_abbrv_local)
+  
+  test_data <- get_ili_for_epiweek_and_issue("201840","201920",region_abbrv_local)
+  
+  
+  ## GET SARIMA FIT
+  
+  
+  
+  sarima_fit_bc_transform <- fit_sarima(
+    y =train_data$wili,
+    ts_frequency = 52,
+    transformation = "box-cox",
+    seasonal_difference = F)
+  
+  print (sarima_fit_bc_transform)
+  
+  
+  test_epiweeks <- c(201740:201752,paste0(2018,"0",1:9),201810:201818)
+  
+  
+  for (test_idx  in 1:(length(test_epiweeks)-h)){
+    epiweek_cutoff <- test_epiweeks[test_idx]
+    truth <- tail(get_ili_for_epiweek_and_issue(test_epiweeks[test_idx + h ],test_epiweeks[test_idx + h],region_abbrv_local)$wili,1)
+    
+    
+    
+    ### GET SARIMA PREDS
+    sarima_pred_dist<- simulate(
+      object = sarima_fit_bc_transform,
+      nsim = 10000,
+      seed = 1,
+      newdata = c(train_data$wili,test_data$wili[1:test_idx]),
+      h = h
+    )
+    sarima_pred_dist <- sarima_pred_dist[,h]
+    
+    sarima_pred_dist <- sarima_pred_dist[!is.na(sarima_pred_dist)]
+    sarima_pred_dist <- sarima_pred_dist[!is.nan(sarima_pred_dist)]
+    
+    #KCDE model
+    #decomp <- stl(ts(c(train_data$wili,test_data$wili[1:test_idx]),frequency = 52),s.window = 52,t.window = 4)
+    
+    #kcde_pred_dist<- simulate(
+    #  object = sarima_fit_bc_transform,
+    #  nsim = 10000,
+    #  seed = 1,
+    #  newdata = decomp$time.series[,1] + decomp$time.series[,2],
+    #  h = h
+    #)
+    # kcde_pred_dist <- kcde_pred_dist[,h]
+    
+    # kcde_pred_dist <- kcde_pred_dist[!is.na(kcde_pred_dist)]
+    # kcde_pred_dist <- kcde_pred_dist[!is.nan(kcde_pred_dist)]
+    kcde_pred_dist <- fit_and_predict_jags(data = c(train_data$wili,test_data$wili[1:test_idx]),h=1,epiweeks=c(substr(train_data$epiweek,5,7),substr(test_data$epiweek[1:test_idx],5,7)),
+                                           params=sarima_fit_bc_transform$arma)
+    
+    sarima_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( sarima_pred_dist,truth) )
+    kcde_score_df[score_idx,] <- c(region_abbrv_local,test_idx,score_dist( kcde_pred_dist,truth) )
+    plot_predictive_dist(pred_dist =sarima_pred_dist,truth = truth,test_idx = test_idx,method="sarima" ,previous_point = tail(test_data$wili,1),location=location)
+    plot_predictive_dist(pred_dist =kcde_pred_dist,truth=truth,test_idx = test_idx,method="kcde",previous_point = tail(test_data$wili,1),location=location) 
+    ### SCORE DATAFRAME COUNTER
+    score_idx <- score_idx +1
+    
+    
+    
+  }
+}
+
+kcde_score_df <- data.frame(kcde_score_df)
+colnames(kcde_score_df) <- c("region","epiweek","kcde_ls")
+saveRDS(object = kcde_score_df,file="kcde_score_df_2016-2017_h_2")
+
+sarima_score_df <- data.frame(sarima_score_df)
+colnames(sarima_score_df) <- c("region","epiweek","sarima_ls")
+saveRDS(object = sarima_score_df,file="sarima_score_df_2016-2017_h_2")
+
+
+print (mean(as.numeric(as.character(kcde_score_df$kcde_ls)),na.rm=T))
+print (mean(as.numeric(as.character(sarima_score_df$sarima_ls)),na.rm=T))
+
+print (mean(as.numeric(as.character(kcde_score_df$kcde_ls)),na.rm=T))-print (mean(as.numeric(as.character(sarima_score_df$sarima_ls)),na.rm=T))
+
+
+
+
+#### plots
+
+kcde_score_df <- readRDS("kcde_score_df_2016-2017_h_2")
+sarima_score_df <- readRDS("sarima_score_df_2016-2017_h_2")
+kcde_score_df <- kcde_score_df[complete.cases(kcde_score_df),]
+sarima_score_df <- sarima_score_df[complete.cases(sarima_score_df),]
+
+total_score_df <- merge(kcde_score_df,sarima_score_df)
+total_score_df$sarima_ls <- as.numeric(as.character(total_score_df$sarima_ls))
+total_score_df$kcde_ls <- as.numeric(as.character(total_score_df$kcde_ls))
+
+
+library(ggplot2)
+library(dplyr)
+data_for_plot <- total_score_df[total_score_df$epiweek %in% 4:30,] %>% dplyr::group_by(region) %>% dplyr::summarize(kcde_ls=mean(kcde_ls),sarima_ls=mean(sarima_ls))
+
+p <- ggplot(data_for_plot,aes(x=region,y=sarima_ls,col='sarimaTD')) + geom_point() +
+  geom_point(aes(x=region,y=kcde_ls,col='sarimaTDS')) + ylim(-10,0)
+ggsave(filename = "regional_results",plot = p,device = "png")
