@@ -48,7 +48,7 @@ region_abbrv <- c('al', 'ak', 'az', 'ca', 'co', 'ct','de','ga', 'hi', 'id', 'il'
 
 kcde_score_df <- matrix(NA,nrow=55*68,ncol=3)
 sarima_score_df <- matrix(NA,nrow=55*68,ncol=3)
-h <- 2
+
 score_idx <-1
 for (location in 1:length(region_str)){
   region_str_local <- region_str[location]
@@ -75,6 +75,7 @@ for (location in 1:length(region_str)){
   
   
   for (test_idx  in 1:(length(test_epiweeks)-h)){
+    h <- length(test_epiweeks)-h - test_idx
     epiweek_cutoff <- test_epiweeks[test_idx]
     truth <- tail(get_ili_for_epiweek_and_issue(test_epiweeks[test_idx + h ],test_epiweeks[test_idx + h],region_abbrv_local)$wili,1)
     
@@ -88,8 +89,7 @@ for (location in 1:length(region_str)){
       newdata = c(train_data$wili,test_data$wili[1:test_idx]),
       h = h
     )
-    sarima_pred_dist <- sarima_pred_dist[,h]
-    
+
     sarima_pred_dist <- sarima_pred_dist[!is.na(sarima_pred_dist)]
     sarima_pred_dist <- sarima_pred_dist[!is.nan(sarima_pred_dist)]
   
@@ -97,7 +97,8 @@ for (location in 1:length(region_str)){
                                            params_ar=sarima_fit_bc_transform$arma)
     
   
-    create_submission_file(p_samples = kcde_pred_dist,season = 1,epiweek = test_idx,regions = region_abbrv_local,method = "sarima")
+    create_submission_file(p_samples = kcde_pred_dist,season = 1,epiweek = test_idx,regions = region_abbrv_local,method = "kcde")
+    create_submission_file(p_samples = sarima_pred_dist,season = 1,epiweek = test_idx,regions = region_abbrv_local,method = "sarima")
     
   }
 }
