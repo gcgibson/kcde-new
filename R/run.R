@@ -74,8 +74,8 @@ for (location in 1:length(region_str)){
   test_epiweeks <- c(201740:201752,paste0(2018,"0",1:9),201810:201818)
   
   
-  for (test_idx  in 1:(length(test_epiweeks)-h)){
-    h <- length(test_epiweeks)-h - test_idx
+  for (test_idx  in 1:(length(test_epiweeks)-1)){
+    h <- length(test_epiweeks) - test_idx
     epiweek_cutoff <- test_epiweeks[test_idx]
     truth <- tail(get_ili_for_epiweek_and_issue(test_epiweeks[test_idx + h ],test_epiweeks[test_idx + h],region_abbrv_local)$wili,1)
     
@@ -90,15 +90,14 @@ for (location in 1:length(region_str)){
       h = h
     )
 
-    sarima_pred_dist <- sarima_pred_dist[!is.na(sarima_pred_dist)]
-    sarima_pred_dist <- sarima_pred_dist[!is.nan(sarima_pred_dist)]
+  
   
     kcde_pred_dist <- fit_and_predict_jags(data = c(train_data$wili,test_data$wili[1:test_idx]),epiweeks=c(substr(train_data$epiweek,5,7),substr(test_data$epiweek[1:test_idx],5,7)),
                                            params_ar=sarima_fit_bc_transform$arma)
     
   
-    create_submission_file(p_samples = kcde_pred_dist,season = 1,epiweek = test_idx,regions = region_abbrv_local,method = "kcde")
-    create_submission_file(p_samples = sarima_pred_dist,season = 1,epiweek = test_idx,regions = region_abbrv_local,method = "sarima")
+    create_submission_file(p_samples = kcde_pred_dist,season = 2018,epiweek = test_idx,regions = region_abbrv_local,method = "kcde")
+    create_submission_file(p_samples = sarima_pred_dist,season = 2018,epiweek = test_idx,regions = region_abbrv_local,method = "sarima")
     
   }
 }
@@ -158,14 +157,10 @@ create_submission_file <- function(p_samples,season,epiweek,regions,method){
   pred_to_write <- dplyr::rbind_list(predx_list) 
   # create the submission df
   library(dplyr)
-  submission_df <- predx_to_submission_df(pred_to_write, ew = substr(epiweek,5,7), year = substr(epiweek,1,4), team = paste0(model,"-","projected"))  
+  submission_df <- predx_to_submission_df(pred_to_write, ew = test_idx, year = season, team = "test")  
   
-  if (as.numeric(substr(epiweek,5,7)) <= 20){
-    current_season_identifier <- substr(season,6,10)
-  } else{
-    current_season_identifier <- substr(season,1,4)
-  }
-  write.csv(submission_df,row.names = F, file =paste0(method,"-","EW",substr(epiweek,5,7),"-",regions,"-",current_season_identifier,".csv"))
+  current_season_identifier <- season
+  write.csv(submission_df,row.names = F, file =paste0(method,"-","EW",test_idx,"-",regions,"-",current_season_identifier,".csv"))
   
 }
 

@@ -61,7 +61,7 @@ current_week <- tail(epiweeks,1)
 current_week_idx <- which(weeks_to_model==current_week)
 weeks_to_simulate <- weeks_to_model[5:length(weeks_to_model)]
 
-jags.data = list(d= c(transformed_data,rep(NA,length(weeks_to_simulate))),p=params_ar[1],q=params_ar[2],T=length(transformed_data)+length(weeks_to_simulate),week=c(epiweeks,weeks_to_simulate))
+jags.data = list(d= c(transformed_data,rep(NA,length(weeks_to_simulate))),p=params_ar[1],q=max(1,params_ar[2]),T=length(transformed_data)+length(weeks_to_simulate),week=c(epiweeks,weeks_to_simulate))
 jags.params = c("d")
 mod_ar1_intercept = jags(jags.data, parameters.to.save = jags.params, 
     model.file = model.loc, n.chains = 3, n.burnin = 5000, n.thin = 1, 
